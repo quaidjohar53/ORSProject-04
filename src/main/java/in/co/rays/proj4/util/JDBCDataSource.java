@@ -10,7 +10,7 @@ public final class JDBCDataSource {
 
 	private static JDBCDataSource jdbc = null;
 	private static ComboPooledDataSource cpds = null;
-	private static ResourceBundle rb = ResourceBundle.getBundle("com.rays.budle.system");
+	private static ResourceBundle rb = ResourceBundle.getBundle("in.co.rays.proj4.bundle.System");
 
 	private JDBCDataSource() {
 		cpds = new ComboPooledDataSource();

@@ -7,27 +7,29 @@ import in.co.rays.proj4.exception.DuplicateRecordException;
 public class UserModel extends BaseModel<UserBean> {
 
 	@Override
-	public int add() throws DuplicateRecordException {
+	public long add(UserBean bean) throws DuplicateRecordException {
 		return 0;
 	}
 
 	@Override
-	public void update() throws DuplicateRecordException {
+	public void update(UserBean bean) throws DuplicateRecordException {
 
-	}
-
-	@Override
-	public BaseBean findByUniqueColumn() {
-		return null;
-	}
-
-	@Override
-	public String getWhereClouse() {
-		return null;
 	}
 
 	@Override
 	public UserBean getBean() {
+		return null;
+	}
+
+	@Override
+	public String getWhereClause(UserBean bean) {
+
+		return null;
+	}
+
+	@Override
+	public String getTable() {
+
 		return null;
 	}
 
