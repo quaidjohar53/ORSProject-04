@@ -17,40 +17,36 @@ public abstract class BaseModel<T extends BaseBean> {
 	public abstract void update(T bean) throws DuplicateRecordException;
 
 	public abstract String getWhereClause(T bean);
-	
-	public abstract String getTable ();
+
+	public abstract String getTable();
 
 	public abstract T getBean();
-	
-	public Integer nextPk()throws DatabaseException {
 
-	Connection conn = null;
+	public Integer nextPk() throws DatabaseException {
 
-	int pk = 0 ;
+		Connection conn = null;
 
-	try
-	{
-		conn = JDBCDataSource.getConnection();
-		PreparedStatement pstmt = conn.prepareStatement("select max (ID)from " + getTable());
-		ResultSet rs = pstmt.executeQuery();
-		while (rs.next()) {
-			pk = rs.getInt(1);
+		int pk = 0;
+
+		try {
+			conn = JDBCDataSource.getConnection();
+			PreparedStatement pstmt = conn.prepareStatement("select max (ID)from " + getTable());
+			ResultSet rs = pstmt.executeQuery();
+			while (rs.next()) {
+				pk = rs.getInt(1);
+
+			}
+			rs.close();
+
+		} catch (SQLException e) {
+			throw new DatabaseException("EXception : Exception in getting pk ");
+
+		} finally {
+			JDBCDataSource.closeConnection(conn);
 
 		}
-		rs.close();
 
-	}catch(
-	SQLException e)
-	{
-		throw new DatabaseException("EXception : Exception in getting pk ");
-
-	}finally
-	{
-		JDBCDataSource.closeConnection(conn);
-
-	}
-	
-	return pk = 1;
+		return pk = 1;
 	}
 
 }

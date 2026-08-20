@@ -55,21 +55,19 @@ public abstract class BaseBean implements DropdownListBean {
 	public void setModifiedDatetime(Timestamp modifiedDatetime) {
 		this.modifiedDatetime = modifiedDatetime;
 	}
-	
-	public void setResultset (ResultSet rs ) {
+
+	public void setResultset(ResultSet rs) {
 		try {
 			this.setId(rs.getLong("ID"));
 			this.setCreatedBy(rs.getString("CREATED_BY"));
 			this.setModifiedBy(rs.getString("MODIFIED_BY"));
 			this.setCreatedDatetime(rs.getTimestamp("CREATED_DATETIME"));
 			this.setModifiedDatetime(rs.getTimestamp("MODIFIED_DATETIME"));
-			
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
-		
+
 	}
 
 	@Override
