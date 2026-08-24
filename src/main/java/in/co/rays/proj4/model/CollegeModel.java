@@ -1,0 +1,111 @@
+package in.co.rays.proj4.model;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+
+import in.co.rays.proj4.bean.CollegeBean;
+import in.co.rays.proj4.exception.DuplicateRecordException;
+import in.co.rays.proj4.util.JDBCDataSource;
+
+public class CollegeModel extends BaseModel<CollegeBean> {
+
+	@Override
+	public long add(CollegeBean bean) throws DuplicateRecordException {
+
+		Connection conn = null;
+
+		try {
+
+			conn = JDBCDataSource.getConnection();
+			conn.setAutoCommit(false);
+
+			PreparedStatement pstmt = conn.prepareStatement(
+					"insert into " + getTable()
+					+ " values (?,?,?,?,?,?,?,?,?,?)");
+
+			pstmt.setInt(1, nextPk());
+			pstmt.setString(2, bean.getName());
+			pstmt.setString(3, bean.getAddress());
+			pstmt.setString(4, bean.getState());
+			pstmt.setString(5, bean.getCity());
+			pstmt.setString(6, bean.getPhoneNo());
+			pstmt.setString(7, bean.getCreatedBy());
+			pstmt.setString(8, bean.getModifiedBy());
+			pstmt.setTimestamp(9, bean.getCreatedDatetime());
+			pstmt.setTimestamp(10, bean.getModifiedDatetime());
+
+			pstmt.executeUpdate();
+
+			conn.commit();
+
+			pstmt.close();
+
+		} catch (Exception e) {
+
+			e.printStackTrace();
+			JDBCDataSource.trnRollBack(conn);
+
+		} finally {
+
+			JDBCDataSource.closeConnection(conn);
+		}
+
+		return bean.getId();
+	}
+
+	@Override
+	public void update(CollegeBean bean) throws DuplicateRecordException {
+
+		Connection conn = null;
+
+		try {
+
+			conn = JDBCDataSource.getConnection();
+			conn.setAutoCommit(false);
+
+			PreparedStatement pstmt = conn.prepareStatement(
+					"update " + getTable()
+					+ " set name = ?, address = ?, state = ?, city = ?, phone_no = ?, created_by = ?, modified_by = ?, created_datetime = ?, modified_datetime = ? where id = ?");
+
+			pstmt.setString(1, bean.getName());
+			pstmt.setString(2, bean.getAddress());
+			pstmt.setString(3, bean.getState());
+			pstmt.setString(4, bean.getCity());
+			pstmt.setString(5, bean.getPhoneNo());
+			pstmt.setString(6, bean.getCreatedBy());
+			pstmt.setString(7, bean.getModifiedBy());
+			pstmt.setTimestamp(8, bean.getCreatedDatetime());
+			pstmt.setTimestamp(9, bean.getModifiedDatetime());
+			pstmt.setLong(10, bean.getId());
+
+			pstmt.executeUpdate();
+
+			conn.commit();
+
+			pstmt.close();
+
+		} catch (Exception e) {
+
+			JDBCDataSource.trnRollBack(conn);
+
+		} finally {
+
+			JDBCDataSource.closeConnection(conn);
+		}
+	}
+
+	@Override
+	public String getWhereClause(CollegeBean bean) {
+		return null;
+	}
+
+	@Override
+	public String getTable() {
+		return "st_college";
+	}
+
+	@Override
+	public CollegeBean getBean() {
+		return null;
+	}
+}
