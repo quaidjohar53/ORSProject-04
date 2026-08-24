@@ -19,7 +19,7 @@ public class RoleModel extends BaseModel<RoleBean> {
 			conn = JDBCDataSource.getConnection();
 			conn.setAutoCommit(false);
 
-			PreparedStatement pstmt = conn.prepareStatement("insert into " + getTable() + "values (?,?,?,?,?,?,?)");
+			PreparedStatement pstmt = conn.prepareStatement("insert into " + getTable() + " values(?,?,?,?,?,?,?)");
 
 			pstmt.setInt(1, nextPk());
 			pstmt.setString(2, bean.getName());

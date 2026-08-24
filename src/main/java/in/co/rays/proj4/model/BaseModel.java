@@ -30,7 +30,7 @@ public abstract class BaseModel<T extends BaseBean> {
 
 		try {
 			conn = JDBCDataSource.getConnection();
-			PreparedStatement pstmt = conn.prepareStatement("select max (ID)from " + getTable());
+			PreparedStatement pstmt = conn.prepareStatement("select max(ID) from " + getTable());
 			ResultSet rs = pstmt.executeQuery();
 			while (rs.next()) {
 				pk = rs.getInt(1);
@@ -39,6 +39,7 @@ public abstract class BaseModel<T extends BaseBean> {
 			rs.close();
 
 		} catch (SQLException e) {
+			e.printStackTrace();
 			throw new DatabaseException("EXception : Exception in getting pk ");
 
 		} finally {
@@ -46,7 +47,7 @@ public abstract class BaseModel<T extends BaseBean> {
 
 		}
 
-		return pk = 1;
+		return pk + 1;
 	}
 
 }
