@@ -56,7 +56,7 @@ public class CollegeBean extends BaseBean {
 		super.setResultset(rs);
 
 		try {
-
+			super.setResultset(rs);
 			this.setName(rs.getString("NAME"));
 			this.setAddress(rs.getString("ADDRESS"));
 			this.setState(rs.getString("STATE"));

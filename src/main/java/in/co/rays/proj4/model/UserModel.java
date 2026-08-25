@@ -59,7 +59,7 @@ public class UserModel extends BaseModel<UserBean> {
 
 		try {
 			conn = JDBCDataSource.getConnection();
-			conn.setAutoCommit(false); // Begin transaction
+			conn.setAutoCommit(false); 
 
 			PreparedStatement pstmt = conn.prepareStatement(
 					"UPDATE ST_USER SET FIRST_NAME=?,LAST_NAME=?,LOGIN=?,PASSWORD=?,DOB=?,MOBILE_NO=?,ROLE_ID=?,UNSUCCESSFUL_LOGIN=?,GENDER=?,LAST_LOGIN=?,USER_LOCK=?,REGISTERED_IP=?,LAST_LOGIN_IP=?,CREATED_BY=?,MODIFIED_BY=?,CREATED_DATETIME=?,MODIFIED_DATETIME=? WHERE ID=?");
@@ -83,7 +83,7 @@ public class UserModel extends BaseModel<UserBean> {
 			pstmt.setLong(18, bean.getId());
 			pstmt.executeUpdate();
 
-			conn.commit(); // End transaction
+			conn.commit(); 
 			pstmt.close();
 
 		} catch (SQLException e) {
@@ -100,7 +100,7 @@ public class UserModel extends BaseModel<UserBean> {
 
 	@Override
 	public String getTable() {
-		return null;
+		return "st_user";
 	}
 
 	@Override

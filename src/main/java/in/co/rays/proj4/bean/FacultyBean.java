@@ -1,70 +1,20 @@
 package in.co.rays.proj4.bean;
 
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Date;
 
 public class FacultyBean extends BaseBean {
 
-	private String firstName;
-	private String lastName;
-	private Date dob;
-	private String gender;
-	private String mobileNo;
-	private String email;
 	private long collegeId;
 	private String collegeName;
-	private long courseId;
-	private String courseName;
-	private long subjectId;
-	private String subjectName;
-
-	public String getFirstName() {
-		return firstName;
-	}
-
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
-
-	public String getLastName() {
-		return lastName;
-	}
-
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
-
-	public Date getDob() {
-		return dob;
-	}
-
-	public void setDob(Date dob) {
-		this.dob = dob;
-	}
-
-	public String getGender() {
-		return gender;
-	}
-
-	public void setGender(String gender) {
-		this.gender = gender;
-	}
-
-	public String getMobileNo() {
-		return mobileNo;
-	}
-
-	public void setMobileNo(String mobileNo) {
-		this.mobileNo = mobileNo;
-	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
+	private String firstName;
+	private String lastName;
+	private String email;
+	private String mobileNo;
+	private String address;
+	private String gender;
+	private Date dob;
 
 	public long getCollegeId() {
 		return collegeId;
@@ -82,65 +32,82 @@ public class FacultyBean extends BaseBean {
 		this.collegeName = collegeName;
 	}
 
-	public long getCourseId() {
-		return courseId;
+	public String getFirstName() {
+		return firstName;
 	}
 
-	public void setCourseId(long courseId) {
-		this.courseId = courseId;
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
 	}
 
-	public String getCourseName() {
-		return courseName;
+	public String getLastName() {
+		return lastName;
 	}
 
-	public void setCourseName(String courseName) {
-		this.courseName = courseName;
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
 	}
 
-	public long getSubjectId() {
-		return subjectId;
+	public String getEmail() {
+		return email;
 	}
 
-	public void setSubjectId(long subjectId) {
-		this.subjectId = subjectId;
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
-	public String getSubjectName() {
-		return subjectName;
+	public String getMobileNo() {
+		return mobileNo;
 	}
 
-	public void setSubjectName(String subjectName) {
-		this.subjectName = subjectName;
+	public void setMobileNo(String mobileNo) {
+		this.mobileNo = mobileNo;
 	}
 
-	@Override
-	public void setResultset(ResultSet rs) {
+	public String getAddress() {
+		return address;
+	}
 
-		super.setResultset(rs);
+	public void setAddress(String address) {
+		this.address = address;
+	}
 
-		try {
+	public String getGender() {
+		return gender;
+	}
 
-			this.setFirstName(rs.getString("FIRST_NAME"));
-			this.setLastName(rs.getString("LAST_NAME"));
-			this.setDob(rs.getDate("DOB"));
-			this.setGender(rs.getString("GENDER"));
-			this.setMobileNo(rs.getString("MOBILE_NO"));
-			this.setEmail(rs.getString("EMAIL"));
-			this.setCollegeId(rs.getLong("COLLEGE_ID"));
-			this.setCollegeName(rs.getString("COLLEGE_NAME"));
-			this.setCourseId(rs.getLong("COURSE_ID"));
-			this.setCourseName(rs.getString("COURSE_NAME"));
-			this.setSubjectId(rs.getLong("SUBJECT_ID"));
-			this.setSubjectName(rs.getString("SUBJECT_NAME"));
+	public void setGender(String gender) {
+		this.gender = gender;
+	}
 
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+	public Date getDob() {
+		return dob;
+	}
+
+	public void setDob(Date dob) {
+		this.dob = dob;
 	}
 
 	@Override
 	public String getValue() {
-		return firstName;
+		return firstName + " " + lastName;
+	}
+
+	@Override
+	public void setResultset(ResultSet rs) {
+		try {
+			super.setResultset(rs);
+			this.setCollegeId(rs.getLong(2));
+			this.setCollegeName(rs.getString(3));
+			this.setFirstName(rs.getString(4));
+			this.setLastName(rs.getString(5));
+			this.setEmail(rs.getString(6));
+			this.setMobileNo(rs.getString(7));
+			this.setAddress(rs.getString(8));
+			this.setGender(rs.getString(9));
+			this.setDob(rs.getDate(10));
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 }
