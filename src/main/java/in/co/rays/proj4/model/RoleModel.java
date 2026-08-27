@@ -49,26 +49,24 @@ public class RoleModel extends BaseModel<RoleBean> {
 		try {
 			conn = JDBCDataSource.getConnection();
 			conn.setAutoCommit(false);
-			PreparedStatement pstmt = conn.prepareStatement("update" + getTable()
-					+ "set name= ? , description = ? , createdBy = ?, modidfiedBy=?, createdDatetime = ? , modifiedDatetime = ? ,where id = ? ");
+			PreparedStatement pstmt = conn.prepareStatement("update " + getTable()
+					+ " set name = ?, description = ?, modified_by = ?, modified_datetime = ? where id = ? ");
 			pstmt.setString(1, bean.getName());
 			pstmt.setString(2, bean.getDescription());
-			pstmt.setString(3, bean.getCreatedBy());
-			pstmt.setString(4, bean.getModifiedBy());
-			pstmt.setTimestamp(5, bean.getCreatedDatetime());
-			pstmt.setTimestamp(6, bean.getModifiedDatetime());
-			pstmt.setLong(7, bean.getId());
+			pstmt.setString(3, bean.getModifiedBy());
+			pstmt.setTimestamp(4, bean.getModifiedDatetime());
+			pstmt.setLong(5, bean.getId());
 			pstmt.executeUpdate();
-			
+
 			conn.commit();
 			pstmt.close();
-			
 
 		} catch (Exception e) {
+			e.printStackTrace();
 			JDBCDataSource.trnRollBack(conn);
-		}finally {
+		} finally {
 			JDBCDataSource.closeConnection(conn);
-			
+
 		}
 
 	}

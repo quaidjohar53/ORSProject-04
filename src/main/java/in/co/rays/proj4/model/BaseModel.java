@@ -5,6 +5,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import com.mysql.cj.jdbc.JdbcConnection;
+
 import in.co.rays.proj4.bean.BaseBean;
 import in.co.rays.proj4.exception.DatabaseException;
 import in.co.rays.proj4.exception.DuplicateRecordException;
@@ -48,6 +50,30 @@ public abstract class BaseModel<T extends BaseBean> {
 		}
 
 		return pk + 1;
+	}
+
+	public void delete(int id) throws DatabaseException {
+		Connection conn = null;
+
+		try {
+
+			conn = JDBCDataSource.getConnection();
+			conn.setAutoCommit(false);
+			PreparedStatement pstmt = conn.prepareStatement("delete from " + getTable() + " where id = ?");
+			pstmt.setInt(1, id);
+			pstmt.executeUpdate();
+
+			conn.commit();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			JDBCDataSource.trnRollBack(conn);
+
+		} finally {
+			JDBCDataSource.closeConnection(conn);
+
+		}
+
 	}
 
 }

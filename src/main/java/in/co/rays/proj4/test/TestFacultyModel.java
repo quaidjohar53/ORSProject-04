@@ -9,8 +9,10 @@ import in.co.rays.proj4.model.FacultyModel;
 public class TestFacultyModel {
 	
 	public static void main(String[] args) {
-		testadd();
+		//testadd();
+		testdelete();
 	}
+	
 
 	public static void testadd() {
 		
@@ -33,6 +35,14 @@ public class TestFacultyModel {
 		FacultyModel model = new FacultyModel();
 		
 		model.add(bean);
+		
+	}
+	
+	public static void testdelete() {
+		
+		FacultyModel model = new FacultyModel();
+		
+		model.delete(1);
 		
 	}
 }

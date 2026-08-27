@@ -9,8 +9,8 @@ import in.co.rays.proj4.model.UserModel;
 public class TestUserModel {
 
 	public static void main(String[] args) {
-		testadd();
-
+	//	testadd();
+testdelete();
 	}
 
 	public static void testadd() {
@@ -38,6 +38,13 @@ public class TestUserModel {
 
 		model.add(bean);
 
+	}
+	
+	public static void testdelete() {
+		
+		UserModel model = new UserModel();
+		
+		model.delete(1);
 	}
 
 }

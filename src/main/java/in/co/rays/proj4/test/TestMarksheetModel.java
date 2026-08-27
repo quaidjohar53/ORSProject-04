@@ -9,7 +9,9 @@ import in.co.rays.proj4.model.MarksheetModel;
 public class TestMarksheetModel {
 
 	public static void main(String[] args) {
-		testadd();
+		//testadd();
+		
+		testdelete();
 	}
 
 	public static void testadd() {
@@ -30,6 +32,13 @@ public class TestMarksheetModel {
 
 		model.add(bean);
 
+	}
+	
+	public static void testdelete() {
+		
+		MarksheetModel model = new MarksheetModel ();
+		
+		model.delete(1);
 	}
 
 }

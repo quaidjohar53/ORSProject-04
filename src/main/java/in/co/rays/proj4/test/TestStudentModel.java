@@ -7,16 +7,17 @@ import in.co.rays.proj4.bean.StudentBean;
 import in.co.rays.proj4.model.StudentModel;
 
 public class TestStudentModel {
-	
+
 	public static void main(String[] args) {
-		testadd();
-		
+		// testadd();
+		testdelete();
+
 	}
 
 	private static void testadd() {
-		
+
 		StudentBean bean = new StudentBean();
-		
+
 		bean.setCollegeId(1);
 		bean.setCollegeName("DAVV");
 		bean.setFirstName("quaid");
@@ -28,10 +29,18 @@ public class TestStudentModel {
 		bean.setModifiedBy("fgh");
 		bean.setCreatedDatetime(new Timestamp(new Date().getTime()));
 		bean.setModifiedDatetime(new Timestamp(new Date().getTime()));
+
+		StudentModel model = new StudentModel();
+
+		model.add(bean);
+
+	}
+	
+	public static void testdelete() {
 		
 		StudentModel model = new StudentModel();
 		
-		model.add(bean);
+		model.delete(1);
 	}
 
 }

@@ -9,7 +9,8 @@ import in.co.rays.proj4.model.SubjectModel;
 public class TestSubjectModel {
 	
 	public static void main(String[] args) {
-		testadd();
+		//testadd();
+		testdelete();
 	}
 
 	public static void testadd() {
@@ -29,5 +30,12 @@ public class TestSubjectModel {
 		model.add(bean);
 		
 		
+	}
+	
+	public static void testdelete() {
+		
+		SubjectModel model = new SubjectModel();
+		
+		model.delete(1);
 	}
 }
