@@ -10,7 +10,9 @@ public class TestFacultyModel {
 	
 	public static void main(String[] args) {
 		//testadd();
-		testdelete();
+		//testdelete();
+		testupdate();
+		
 	}
 	
 
@@ -43,6 +45,29 @@ public class TestFacultyModel {
 		FacultyModel model = new FacultyModel();
 		
 		model.delete(1);
+		
+	}
+	
+	public static void testupdate() {
+		
+		FacultyBean bean = new FacultyBean();
+		FacultyModel model = new FacultyModel();
+		
+		bean.setId(1);
+		bean.setCollegeId(101);
+		bean.setCollegeName("Accropolis");
+		bean.setFirstName("ABCD");
+		bean.setLastName("XYZ");
+		bean.setEmail("FGH@gmail.com");
+		bean.setMobileNo("5454544454");
+		bean.setAddress("INdore");
+		bean.setGender("Male");
+		bean.setDob(new Date());
+		bean.setModifiedBy("XYZ");
+		bean.setModifiedDatetime(new Timestamp(new Date().getTime()));
+		
+		model.update(bean);
+		
 		
 	}
 }

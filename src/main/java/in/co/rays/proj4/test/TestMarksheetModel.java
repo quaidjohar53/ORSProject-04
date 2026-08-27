@@ -11,7 +11,10 @@ public class TestMarksheetModel {
 	public static void main(String[] args) {
 		//testadd();
 		
-		testdelete();
+		//testdelete();
+		
+		testupdate();
+		
 	}
 
 	public static void testadd() {
@@ -39,6 +42,24 @@ public class TestMarksheetModel {
 		MarksheetModel model = new MarksheetModel ();
 		
 		model.delete(1);
+	}
+	
+	public static void testupdate() {
+		MarksheetBean bean = new MarksheetBean();
+		MarksheetModel model = new MarksheetModel();
+		
+		bean.setId(1);
+		bean.setRollNo(10);
+		bean.setStudentId(1);
+		bean.setName("Quaid");
+		bean.setPhysics(89);
+		bean.setChemistry(87);
+		bean.setMaths(91);
+		bean.setModifiedBy("XYZ");
+		bean.setModifiedDatetime(new Timestamp(new Date().getTime()));
+		
+		model.update(bean);
+		
 	}
 
 }

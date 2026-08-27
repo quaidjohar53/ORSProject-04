@@ -10,8 +10,9 @@ public class TestStudentModel {
 
 	public static void main(String[] args) {
 		// testadd();
-		testdelete();
+		// testdelete();
 
+		testupdate();
 	}
 
 	private static void testadd() {
@@ -35,12 +36,32 @@ public class TestStudentModel {
 		model.add(bean);
 
 	}
-	
+
 	public static void testdelete() {
-		
+
+		StudentModel model = new StudentModel();
+
+		model.delete(1);
+	}
+
+	public static void testupdate() {
+
+		StudentBean bean = new StudentBean();
 		StudentModel model = new StudentModel();
 		
-		model.delete(1);
+		bean.setId(1);
+		bean.setCollegeId(1);
+		bean.setCollegeName("Accropolis");
+		bean.setFirstName("Quaid");
+		bean.setLastName("johar");
+		bean.setDob(new Date());
+		bean.setMobileNo("9898989898");
+		bean.setModifiedBy("xyz");
+		bean.setModifiedDatetime(new Timestamp(new Date().getTime()));
+		
+		model.update(bean);
+		
+
 	}
 
 }

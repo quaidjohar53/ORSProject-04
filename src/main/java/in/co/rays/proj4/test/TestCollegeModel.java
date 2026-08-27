@@ -10,9 +10,9 @@ import in.co.rays.proj4.model.RoleModel;
 public class TestCollegeModel {
 
 	public static void main(String[] args) {
-		//testadd();
-		testdelete();
-
+		 //testadd();
+		// testdelete();
+		testupdate();
 	}
 
 	public static void testadd() {
@@ -37,9 +37,26 @@ public class TestCollegeModel {
 
 	public static void testdelete() {
 		CollegeModel model = new CollegeModel();
-		
-		model.delete(2);
-		
 
+		model.delete(2);
+
+	}
+	
+	public static void testupdate() {
+		
+		CollegeBean bean = new CollegeBean();
+		CollegeModel model = new CollegeModel();
+		
+		bean.setId(1);
+		bean.setName("quaid");
+		bean.setAddress("Indore");
+		bean.setState("Madhya Pradesh");
+		bean.setCity("ujjain");
+		bean.setPhoneNo("545454544454");
+		bean.setModifiedBy("abcd");
+		bean.setModifiedDatetime(new Timestamp(new Date().getTime()));
+		
+		model.update(bean);
+		
 	}
 }

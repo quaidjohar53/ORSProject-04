@@ -9,9 +9,9 @@ import in.co.rays.proj4.model.CourseModel;
 public class TestCourseModel {
 
 	public static void main(String[] args) {
-		//testadd();
-		testdelete();
-		
+		// testadd();
+		// testdelete();
+		testupdate();
 	}
 
 	public static void testadd() {
@@ -31,11 +31,28 @@ public class TestCourseModel {
 		model.add(bean);
 
 	}
-	
+
 	public static void testdelete() {
-		 CourseModel model = new CourseModel();
-		 
-		 model.delete(2);	
+		CourseModel model = new CourseModel();
+
+		model.delete(2);
 	}
 
+	public static void testupdate() {
+		CourseBean bean = new CourseBean();
+		CourseModel model = new CourseModel();
+		
+		bean.setId(1);
+		bean.setName("Java FullStack");
+		bean.setDescription("Affordable course");
+		bean.setDuration("6 months");
+		bean.setCreatedBy("ABCD");
+		bean.setModifiedBy("XYZ");
+		bean.setModifiedDatetime(new Timestamp(new Date().getTime()));
+		
+		model.update(bean);
+		
+
+		
+	}
 }

@@ -6,7 +6,6 @@ public class SubjectBean extends BaseBean {
 
 	private String name;
 	private long courseId;
-	private String courseName;
 	private String description;
 
 	public String getName() {
@@ -23,14 +22,6 @@ public class SubjectBean extends BaseBean {
 
 	public void setCourseId(long courseId) {
 		this.courseId = courseId;
-	}
-
-	public String getCourseName() {
-		return courseName;
-	}
-
-	public void setCourseName(String courseName) {
-		this.courseName = courseName;
 	}
 
 	public String getDescription() {
@@ -50,7 +41,6 @@ public class SubjectBean extends BaseBean {
 
 			this.setName(rs.getString("NAME"));
 			this.setCourseId(rs.getLong("COURSE_ID"));
-			this.setCourseName(rs.getString("COURSE_NAME"));
 			this.setDescription(rs.getString("DESCRIPTION"));
 
 		} catch (Exception e) {

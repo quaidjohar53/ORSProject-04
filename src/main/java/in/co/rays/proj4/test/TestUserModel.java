@@ -9,8 +9,9 @@ import in.co.rays.proj4.model.UserModel;
 public class TestUserModel {
 
 	public static void main(String[] args) {
-	//	testadd();
-testdelete();
+		// testadd();
+		// testdelete();
+		testupdate();
 	}
 
 	public static void testadd() {
@@ -39,12 +40,38 @@ testdelete();
 		model.add(bean);
 
 	}
-	
+
 	public static void testdelete() {
-		
+
 		UserModel model = new UserModel();
-		
+
 		model.delete(1);
+	}
+
+	public static void testupdate() {
+
+		UserBean bean = new UserBean();
+		UserModel model = new UserModel();
+
+		bean.setId(1);
+		bean.setFirstName("Quaid");
+		bean.setLastName("Johar");
+		bean.setLogin("ABC@gmail.com");
+		bean.setPassword("12345");
+		bean.setDob(new Date());
+		bean.setMobileNo("7879865556");
+		bean.setRoleId(1);
+		bean.setUnSuccessfulLogin(0);
+		bean.setGender("male");
+		bean.setLastLogin(new Timestamp(new Date().getTime()));
+		bean.setLock("N");
+		bean.setRegisteredIP("127.0.0.1");
+		bean.setLastLoginIP("127.0.0.1");
+		bean.setModifiedBy("XYZ");
+		bean.setModifiedDatetime(new Timestamp(new Date().getTime()));
+
+		model.update(bean);
+
 	}
 
 }

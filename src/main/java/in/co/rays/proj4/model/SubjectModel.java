@@ -21,17 +21,16 @@ public class SubjectModel extends BaseModel<SubjectBean> {
 
 			PreparedStatement pstmt = conn.prepareStatement(
 					"insert into " + getTable()
-					+ " values (?,?,?,?,?,?,?,?,?)");
+					+ " values (?,?,?,?,?,?,?,?)");
 
 			pstmt.setInt(1, nextPk());
 			pstmt.setString(2, bean.getName());
 			pstmt.setLong(3, bean.getCourseId());
-			pstmt.setString(4, bean.getCourseName());
-			pstmt.setString(5, bean.getDescription());
-			pstmt.setString(6, bean.getCreatedBy());
-			pstmt.setString(7, bean.getModifiedBy());
-			pstmt.setTimestamp(8, bean.getCreatedDatetime());
-			pstmt.setTimestamp(9, bean.getModifiedDatetime());
+			pstmt.setString(4, bean.getDescription());
+			pstmt.setString(5, bean.getCreatedBy());
+			pstmt.setString(6, bean.getModifiedBy());
+			pstmt.setTimestamp(7, bean.getCreatedDatetime());
+			pstmt.setTimestamp(8, bean.getModifiedDatetime());
 
 			pstmt.executeUpdate();
 
@@ -64,17 +63,16 @@ public class SubjectModel extends BaseModel<SubjectBean> {
 
 			PreparedStatement pstmt = conn.prepareStatement(
 					"update " + getTable()
-					+ " set name = ?, course_id = ?, course_name = ?, description = ?, created_by = ?, modified_by = ?, created_datetime = ?, modified_datetime = ? where id = ?");
+					+ " set name = ?, course_id = ?, description = ?, created_by = ?, modified_by = ?, created_datetime = ?, modified_datetime = ? where id = ?");
 
 			pstmt.setString(1, bean.getName());
 			pstmt.setLong(2, bean.getCourseId());
-			pstmt.setString(3, bean.getCourseName());
-			pstmt.setString(4, bean.getDescription());
-			pstmt.setString(5, bean.getCreatedBy());
-			pstmt.setString(6, bean.getModifiedBy());
-			pstmt.setTimestamp(7, bean.getCreatedDatetime());
-			pstmt.setTimestamp(8, bean.getModifiedDatetime());
-			pstmt.setLong(9, bean.getId());
+			pstmt.setString(3, bean.getDescription());
+			pstmt.setString(4, bean.getCreatedBy());
+			pstmt.setString(5, bean.getModifiedBy());
+			pstmt.setTimestamp(6, bean.getCreatedDatetime());
+			pstmt.setTimestamp(7, bean.getModifiedDatetime());
+			pstmt.setLong(8, bean.getId());
 
 			pstmt.executeUpdate();
 
