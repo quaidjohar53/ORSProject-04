@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import com.mysql.cj.jdbc.JdbcConnection;
 
 import in.co.rays.proj4.bean.BaseBean;
+import in.co.rays.proj4.exception.ApplicationException;
 import in.co.rays.proj4.exception.DatabaseException;
 import in.co.rays.proj4.exception.DuplicateRecordException;
 import in.co.rays.proj4.util.JDBCDataSource;
@@ -71,9 +72,69 @@ public abstract class BaseModel<T extends BaseBean> {
 
 		} finally {
 			JDBCDataSource.closeConnection(conn);
+		}
+
+	}
+
+	public T findByPK(long pk) throws ApplicationException {
+		T bean = null;
+		Connection conn = null;
+
+		try {
+
+			conn = JDBCDataSource.getConnection();
+			PreparedStatement pstmt = conn.prepareStatement("select * from " + getTable() + "where id = ? ");
+			pstmt.setLong(1, pk);
+			ResultSet rs = pstmt.executeQuery();
+			while (rs.next()) {
+				bean = getBean();
+				bean.setResultset(rs);
+
+			}
+			rs.close();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new ApplicationException("Exception : Exception is getting user by pk ");
+
+		} finally {
+			JDBCDataSource.closeConnection(conn);
+
+		}
+		return bean;
+
+	}
+
+	public T findByUniqueColumn(String column, String value) {
+
+		T bean = null;
+		Connection conn = null;
+
+		try {
+			conn = JDBCDataSource.getConnection();
+
+			PreparedStatement pstmt = conn
+					.prepareStatement("select * from " + getTable() + "where " + column + "='" + value + "'");
+			ResultSet rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				bean = getBean();
+				bean.setResultset(rs);
+
+			}
+			rs.close();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("Exception: in findByUniqueColumn, " + column + " " + e.getMessage());
 
 		}
 
+		finally {
+			JDBCDataSource.closeConnection(conn);
+		}
+
+		return bean;
 	}
 
 }
