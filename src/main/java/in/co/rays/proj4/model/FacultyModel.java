@@ -3,6 +3,7 @@ package in.co.rays.proj4.model;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 
+import in.co.rays.proj4.bean.CollegeBean;
 import in.co.rays.proj4.bean.FacultyBean;
 import in.co.rays.proj4.exception.ApplicationException;
 import in.co.rays.proj4.exception.DuplicateRecordException;
@@ -13,8 +14,21 @@ public class FacultyModel extends BaseModel<FacultyBean> {
 	@Override
 	public long add(FacultyBean bean) throws ApplicationException, DuplicateRecordException {
 
-		Connection conn = null;
 		int pk = 0;
+
+		Connection conn = null;
+		FacultyBean existBean = findByEmail(bean.getEmail());
+
+		if (existBean != null) {
+			throw new DuplicateRecordException("faculty already exist");
+		}
+
+		CollegeModel cmodel = new CollegeModel();
+		CollegeBean cbean = cmodel.findByPK(bean.getCollegeId());
+		if (cbean != null) {
+			bean.setCollegeName(cbean.getName());
+		}
+
 		try {
 			pk = nextPk();
 			conn = JDBCDataSource.getConnection();
@@ -50,6 +64,18 @@ public class FacultyModel extends BaseModel<FacultyBean> {
 	public void update(FacultyBean bean) throws ApplicationException, DuplicateRecordException {
 
 		Connection conn = null;
+		FacultyBean existBean = findByEmail(bean.getEmail());
+
+		if (existBean != null && existBean.getId() != bean.getId()) {
+			throw new DuplicateRecordException("faculty already exist");
+		}
+
+		CollegeModel cmodel = new CollegeModel();
+		CollegeBean cbean = cmodel.findByPK(bean.getCollegeId());
+		if (cbean != null) {
+			bean.setCollegeName(cbean.getName());
+		}
+
 		try {
 			conn = JDBCDataSource.getConnection();
 			conn.setAutoCommit(false);
@@ -74,6 +100,11 @@ public class FacultyModel extends BaseModel<FacultyBean> {
 		} finally {
 			JDBCDataSource.closeConnection(conn);
 		}
+	}
+
+	public FacultyBean findByEmail(String email) throws ApplicationException {
+		FacultyBean bean = findByUniqueColumn("EMAIL", email);
+		return bean;
 	}
 
 	@Override

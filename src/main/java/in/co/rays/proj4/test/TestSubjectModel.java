@@ -44,10 +44,12 @@ public class TestSubjectModel {
 		SubjectModel model = new SubjectModel();
 
 		bean.setId(1);
-		bean.setName("Mathematics");
+		bean.setName("Java FullStack");
 		bean.setDescription("Hard");
 		bean.setCourseId(1);
 		bean.setModifiedBy("xyz");
+		bean.setCreatedBy("ABC");
+		bean.setCreatedDatetime(new Timestamp(new Date().getTime()));
 		bean.setModifiedDatetime(new Timestamp(new Date().getTime()));
 
 		model.update(bean);

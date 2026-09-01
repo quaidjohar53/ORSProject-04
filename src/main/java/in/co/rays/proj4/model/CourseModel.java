@@ -2,93 +2,94 @@ package in.co.rays.proj4.model;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.SQLException;
 
 import in.co.rays.proj4.bean.CourseBean;
+import in.co.rays.proj4.exception.ApplicationException;
 import in.co.rays.proj4.exception.DuplicateRecordException;
 import in.co.rays.proj4.util.JDBCDataSource;
 
 public class CourseModel extends BaseModel<CourseBean> {
 
 	@Override
-	public long add(CourseBean bean) throws DuplicateRecordException {
+	public long add(CourseBean bean) throws ApplicationException, DuplicateRecordException {
+
+		String colums = "ID,NAME, DESCRIPTION, DURATION";
+		String values = "?,?,?,?";
+
+		StringBuffer sql = new StringBuffer("INSERT INTO " + getTable());
+		sql.append("(CREATED_DATETIME,MODIFIED_DATETIME,CREATED_BY,MODIFIED_BY, " + colums + ")");
+		sql.append(" VALUES(NOW(),NOW(),'root@sunilos.com','root@sunilos.com'," + values + " )");
 
 		Connection conn = null;
+		CourseBean existBean = findByName(bean.getName());
+
+		if (existBean != null) {
+			throw new DuplicateRecordException("course already exist");
+		}
+
+		int pk = 0;
 
 		try {
 
 			conn = JDBCDataSource.getConnection();
-			conn.setAutoCommit(false);
+			conn.setAutoCommit(false); // Begin transaction
 
-			PreparedStatement pstmt = conn.prepareStatement(
-					"insert into " + getTable()
-					+ " values (?,?,?,?,?,?,?,?)");
+			pk = nextPk();
 
-			pstmt.setInt(1, nextPk());
+			PreparedStatement pstmt = conn.prepareStatement(sql.toString());
+			pstmt.setInt(1, pk);
 			pstmt.setString(2, bean.getName());
-			pstmt.setString(3, bean.getDuration());
-			pstmt.setString(4, bean.getDescription());
-			pstmt.setString(5, bean.getCreatedBy());
-			pstmt.setString(6, bean.getModifiedBy());
-			pstmt.setTimestamp(7, bean.getCreatedDatetime());
-			pstmt.setTimestamp(8, bean.getModifiedDatetime());
-
+			pstmt.setString(3, bean.getDescription());
+			pstmt.setString(4, bean.getDuration());
 			pstmt.executeUpdate();
 
-			conn.commit();
-
+			conn.commit(); // End transaction
 			pstmt.close();
 
-		} catch (Exception e) {
-
-			e.printStackTrace();
+		} catch (SQLException e) {
 			JDBCDataSource.trnRollBack(conn);
-
 		} finally {
-
 			JDBCDataSource.closeConnection(conn);
 		}
-
-		return bean.getId();
+		return pk;
 	}
 
 	@Override
-	public void update(CourseBean bean) throws DuplicateRecordException {
+	public void update(CourseBean bean) throws ApplicationException, DuplicateRecordException {
+
+		String sql = "UPDATE " + getTable() + " SET NAME=?,DESCRIPTION=?,DURATION=? WHERE ID=?";
 
 		Connection conn = null;
+		CourseBean existBean = findByName(bean.getName());
+
+		if (existBean != null && existBean.getId() != bean.getId()) {
+			throw new DuplicateRecordException("course already exist");
+		}
 
 		try {
-
 			conn = JDBCDataSource.getConnection();
-			conn.setAutoCommit(false);
+			conn.setAutoCommit(false); // Begin transaction
 
-			PreparedStatement pstmt = conn.prepareStatement(
-					"update " + getTable()
-					+ " set name = ?, duration = ?, description = ?, created_by = ?, modified_by = ?, created_datetime = ?, modified_datetime = ? where id = ?");
-
+			PreparedStatement pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, bean.getName());
-			pstmt.setString(2, bean.getDuration());
-			pstmt.setString(3, bean.getDescription());
-			pstmt.setString(4, bean.getCreatedBy());
-			pstmt.setString(5, bean.getModifiedBy());
-			pstmt.setTimestamp(6, bean.getCreatedDatetime());
-			pstmt.setTimestamp(7, bean.getModifiedDatetime());
-			pstmt.setLong(8, bean.getId());
-
+			pstmt.setString(2, bean.getDescription());
+			pstmt.setString(3, bean.getDuration());
+			pstmt.setLong(4, bean.getId());
 			pstmt.executeUpdate();
 
-			conn.commit();
-
+			conn.commit(); // End transaction
 			pstmt.close();
 
-		} catch (Exception e) {
-
-			e.printStackTrace();
+		} catch (SQLException e) {
 			JDBCDataSource.trnRollBack(conn);
-
 		} finally {
-
 			JDBCDataSource.closeConnection(conn);
 		}
+	}
+
+	public CourseBean findByName(String name) throws ApplicationException {
+		return findByUniqueColumn("NAME", name);
 	}
 
 	@Override
@@ -98,11 +99,11 @@ public class CourseModel extends BaseModel<CourseBean> {
 
 	@Override
 	public String getTable() {
-		return "st_course";
+		return "ST_COURSE";
 	}
 
 	@Override
 	public CourseBean getBean() {
-		return null;
+		return new CourseBean();
 	}
 }

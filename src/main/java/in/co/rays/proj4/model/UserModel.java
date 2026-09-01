@@ -13,7 +13,13 @@ public class UserModel extends BaseModel<UserBean> {
 
 	@Override
 	public long add(UserBean bean) throws ApplicationException, DuplicateRecordException {
+
 		Connection conn = null;
+		UserBean existbean = findByLogin(bean.getLogin());
+
+		if (existbean != null) {
+			throw new DuplicateRecordException("Login Id already exists");
+		}
 
 		try {
 
@@ -55,11 +61,17 @@ public class UserModel extends BaseModel<UserBean> {
 
 	@Override
 	public void update(UserBean bean) throws ApplicationException, DuplicateRecordException {
+
 		Connection conn = null;
+		UserBean existbean = findByLogin(bean.getLogin());
+
+		if (existbean != null && !(existbean.getId() == bean.getId())) {
+			throw new DuplicateRecordException("LoginId is already exist");
+		}
 
 		try {
 			conn = JDBCDataSource.getConnection();
-			conn.setAutoCommit(false); 
+			conn.setAutoCommit(false); // Begin transaction
 
 			PreparedStatement pstmt = conn.prepareStatement(
 					"UPDATE ST_USER SET FIRST_NAME=?,LAST_NAME=?,LOGIN=?,PASSWORD=?,DOB=?,MOBILE_NO=?,ROLE_ID=?,UNSUCCESSFUL_LOGIN=?,GENDER=?,LAST_LOGIN=?,USER_LOCK=?,REGISTERED_IP=?,LAST_LOGIN_IP=?,CREATED_BY=?,MODIFIED_BY=?,CREATED_DATETIME=?,MODIFIED_DATETIME=? WHERE ID=?");
@@ -83,7 +95,7 @@ public class UserModel extends BaseModel<UserBean> {
 			pstmt.setLong(18, bean.getId());
 			pstmt.executeUpdate();
 
-			conn.commit(); 
+			conn.commit(); // End transaction
 			pstmt.close();
 
 		} catch (SQLException e) {
@@ -93,9 +105,48 @@ public class UserModel extends BaseModel<UserBean> {
 		}
 	}
 
+	public UserBean findByLogin(String login) throws ApplicationException {
+		UserBean bean = findByUniqueColumn("login", login);
+		return bean;
+	}
+
+	public UserBean authenticate(String login, String password) throws ApplicationException {
+		UserBean bean = findByLogin(login);
+		if (bean != null && bean.getPassword().equals(password)) {
+			return bean;
+		} else {
+			return null;
+		}
+	}
+
 	@Override
 	public String getWhereClause(UserBean bean) {
-		return null;
+
+		StringBuffer sql = new StringBuffer("");
+
+		if (bean != null) {
+			if (bean.getId() > 0) {
+				sql.append(" and id = " + bean.getId());
+			}
+			if (bean.getFirstName() != null && bean.getFirstName().length() > 0) {
+				sql.append(" and first_name like '" + bean.getFirstName() + "%'");
+			}
+			if (bean.getLastName() != null && bean.getLastName().length() > 0) {
+				sql.append(" and last_name like '" + bean.getLastName() + "%'");
+			}
+			if (bean.getLogin() != null && bean.getLogin().length() > 0) {
+				sql.append(" and login like '" + bean.getLogin() + "%'");
+			}
+			if (bean.getPassword() != null && bean.getPassword().length() > 0) {
+				sql.append(" and password like '" + bean.getPassword() + "%'");
+			}
+			if (bean.getDob() != null && bean.getDob().getTime() > 0) {
+				sql.append(" and dob like '" + new java.sql.Date(bean.getDob().getTime()) + "%'");
+			}
+
+		}
+
+		return sql.toString();
 	}
 
 	@Override
@@ -105,7 +156,7 @@ public class UserModel extends BaseModel<UserBean> {
 
 	@Override
 	public UserBean getBean() {
-		return null;
+		return new UserBean();
 	}
 
 }

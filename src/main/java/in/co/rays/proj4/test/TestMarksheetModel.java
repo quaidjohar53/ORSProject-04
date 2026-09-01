@@ -13,15 +13,15 @@ public class TestMarksheetModel {
 		
 		//testdelete();
 		
-		testupdate();
+		//testupdate();
 		
 	}
 
 	public static void testadd() {
 		MarksheetBean bean = new MarksheetBean();
 
-		bean.setRollNo(1);
-		bean.setStudentId(258);
+		bean.setRollNo("1");
+		bean.setStudentId(1L);
 		bean.setName("quaid");
 		bean.setPhysics(58);
 		bean.setChemistry(78);
@@ -49,8 +49,8 @@ public class TestMarksheetModel {
 		MarksheetModel model = new MarksheetModel();
 		
 		bean.setId(1);
-		bean.setRollNo(10);
-		bean.setStudentId(1);
+		bean.setRollNo("10");
+		bean.setStudentId(1L);
 		bean.setName("Quaid");
 		bean.setPhysics(89);
 		bean.setChemistry(87);

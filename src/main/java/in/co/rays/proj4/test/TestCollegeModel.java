@@ -10,22 +10,22 @@ import in.co.rays.proj4.model.RoleModel;
 public class TestCollegeModel {
 
 	public static void main(String[] args) {
-		 //testadd();
+		 testadd();
 		// testdelete();
-		testupdate();
+		//testupdate();
 	}
 
 	public static void testadd() {
 
 		CollegeBean bean = new CollegeBean();
 
-		bean.setName("quaid");
-		bean.setAddress("indore");
-		bean.setState("Mp");
-		bean.setCity("inodre");
+		bean.setName("Vikram University");
+		bean.setAddress("Dewas road");
+		bean.setState("Madhya pradeh");
+		bean.setCity("Ujjain");
 		bean.setPhoneNo("8954412665");
-		bean.setCreatedBy("quaid");
-		bean.setModifiedBy("quaid");
+		bean.setCreatedBy("ABCD");
+		bean.setModifiedBy("xyz");
 		bean.setCreatedDatetime(new Timestamp(new Date().getTime()));
 		bean.setModifiedDatetime(new Timestamp(new Date().getTime()));
 
@@ -38,7 +38,7 @@ public class TestCollegeModel {
 	public static void testdelete() {
 		CollegeModel model = new CollegeModel();
 
-		model.delete(2);
+		model.delete(1);
 
 	}
 	
@@ -48,11 +48,11 @@ public class TestCollegeModel {
 		CollegeModel model = new CollegeModel();
 		
 		bean.setId(1);
-		bean.setName("quaid");
-		bean.setAddress("Indore");
+		bean.setName("Vikram University");
+		bean.setAddress("Dewas road");
 		bean.setState("Madhya Pradesh");
-		bean.setCity("ujjain");
-		bean.setPhoneNo("545454544454");
+		bean.setCity("Ujjain");
+		bean.setPhoneNo("9000010000");
 		bean.setModifiedBy("abcd");
 		bean.setModifiedDatetime(new Timestamp(new Date().getTime()));
 		

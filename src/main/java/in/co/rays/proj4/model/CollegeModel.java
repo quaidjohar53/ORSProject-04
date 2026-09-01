@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 
 import in.co.rays.proj4.bean.CollegeBean;
+import in.co.rays.proj4.exception.ApplicationException;
 import in.co.rays.proj4.exception.DuplicateRecordException;
 import in.co.rays.proj4.util.JDBCDataSource;
 
@@ -14,14 +15,21 @@ public class CollegeModel extends BaseModel<CollegeBean> {
 
 		Connection conn = null;
 
+		int pk = 0;
+
+		CollegeBean existBean = findByName(bean.getName());
+
+		if (existBean != null) {
+			throw new DuplicateRecordException("college already exist");
+		}
+
 		try {
 
 			conn = JDBCDataSource.getConnection();
 			conn.setAutoCommit(false);
 
-			PreparedStatement pstmt = conn.prepareStatement(
-					"insert into " + getTable()
-					+ " values (?,?,?,?,?,?,?,?,?,?)");
+			PreparedStatement pstmt = conn
+					.prepareStatement("insert into " + getTable() + " values (?,?,?,?,?,?,?,?,?,?)");
 
 			pstmt.setInt(1, nextPk());
 			pstmt.setString(2, bean.getName());
@@ -58,13 +66,18 @@ public class CollegeModel extends BaseModel<CollegeBean> {
 
 		Connection conn = null;
 
+		CollegeBean existBean = findByName(bean.getName());
+
+		if (existBean != null && existBean.getId() != bean.getId()) {
+			throw new DuplicateRecordException("college already exist");
+		}
+
 		try {
 
 			conn = JDBCDataSource.getConnection();
 			conn.setAutoCommit(false);
 
-			PreparedStatement pstmt = conn.prepareStatement(
-					"update " + getTable()
+			PreparedStatement pstmt = conn.prepareStatement("update " + getTable()
 					+ " set name = ?, address = ?, state = ?, city = ?, phone_no = ?, created_by = ?, modified_by = ?, created_datetime = ?, modified_datetime = ? where id = ?");
 
 			pstmt.setString(1, bean.getName());
@@ -85,13 +98,20 @@ public class CollegeModel extends BaseModel<CollegeBean> {
 			pstmt.close();
 
 		} catch (Exception e) {
-
-			JDBCDataSource.trnRollBack(conn);
-
+			try {
+				conn.rollback();
+			} catch (Exception ex) {
+				throw new ApplicationException("Exception : Delete rollback exception " + ex.getMessage());
+			}
+			throw new ApplicationException("Exception in updating College ");
 		} finally {
-
 			JDBCDataSource.closeConnection(conn);
 		}
+	}
+
+	public CollegeBean findByName(String name) throws ApplicationException {
+		CollegeBean bean = findByUniqueColumn("NAME", name);
+		return bean;
 	}
 
 	@Override

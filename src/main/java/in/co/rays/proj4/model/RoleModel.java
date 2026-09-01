@@ -2,25 +2,31 @@ package in.co.rays.proj4.model;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.SQLException;
 
 import in.co.rays.proj4.bean.RoleBean;
+import in.co.rays.proj4.exception.ApplicationException;
 import in.co.rays.proj4.exception.DuplicateRecordException;
 import in.co.rays.proj4.util.JDBCDataSource;
 
 public class RoleModel extends BaseModel<RoleBean> {
 
 	@Override
-	public long add(RoleBean bean) throws DuplicateRecordException {
+	public long add(RoleBean bean) throws ApplicationException, DuplicateRecordException {
 
 		Connection conn = null;
+
+		RoleBean existBean = findByName(bean.getName());
+
+		if (existBean != null) {
+			throw new DuplicateRecordException("role name already exist");
+		}
 
 		try {
 
 			conn = JDBCDataSource.getConnection();
 			conn.setAutoCommit(false);
-
-			PreparedStatement pstmt = conn.prepareStatement("insert into " + getTable() + " values(?,?,?,?,?,?,?)");
-
+			PreparedStatement pstmt = conn.prepareStatement("inset into " + getTable() + " values(?,?,?,?,?,?,?)");
 			pstmt.setInt(1, nextPk());
 			pstmt.setString(2, bean.getName());
 			pstmt.setString(3, bean.getDescription());
@@ -32,48 +38,78 @@ public class RoleModel extends BaseModel<RoleBean> {
 			pstmt.executeUpdate();
 			conn.commit();
 
-		} catch (Exception e) {
+		} catch (SQLException e) {
 			e.printStackTrace();
 			JDBCDataSource.trnRollBack(conn);
 		} finally {
 			JDBCDataSource.closeConnection(conn);
-
 		}
 
 		return bean.getId();
 	}
 
 	@Override
-	public void update(RoleBean bean) throws DuplicateRecordException {
+	public void update(RoleBean bean) throws ApplicationException, DuplicateRecordException {
+
 		Connection conn = null;
+
+		RoleBean existBean = findByName(bean.getName());
+
+		if (existBean != null && existBean.getId() != bean.getId()) {
+			throw new DuplicateRecordException("role name already exist");
+		}
+
 		try {
 			conn = JDBCDataSource.getConnection();
 			conn.setAutoCommit(false);
+
 			PreparedStatement pstmt = conn.prepareStatement("update " + getTable()
-					+ " set name = ?, description = ?, modified_by = ?, modified_datetime = ? where id = ? ");
+					+ " set name = ?, description = ?, createdBy = ?, modifiedBy = ?, createdDatetime = ?, modifiedDatetime = ? where id = ?");
 			pstmt.setString(1, bean.getName());
 			pstmt.setString(2, bean.getDescription());
-			pstmt.setString(3, bean.getModifiedBy());
-			pstmt.setTimestamp(4, bean.getModifiedDatetime());
-			pstmt.setLong(5, bean.getId());
+			pstmt.setString(3, bean.getCreatedBy());
+			pstmt.setString(4, bean.getModifiedBy());
+			pstmt.setTimestamp(5, bean.getCreatedDatetime());
+			pstmt.setTimestamp(6, bean.getModifiedDatetime());
+			pstmt.setLong(7, bean.getId());
 			pstmt.executeUpdate();
 
-			conn.commit();
+			conn.commit(); 
 			pstmt.close();
 
-		} catch (Exception e) {
-			e.printStackTrace();
+		} catch (SQLException e) {
 			JDBCDataSource.trnRollBack(conn);
 		} finally {
 			JDBCDataSource.closeConnection(conn);
-
 		}
+	}
+
+	public RoleBean findByName(String name) {
+
+		RoleBean bean = findByUniqueColumn("name", name);
+
+		return bean;
 
 	}
 
 	@Override
 	public String getWhereClause(RoleBean bean) {
-		return null;
+
+		StringBuffer sql = new StringBuffer("");
+
+		if (bean != null) {
+			if (bean.getId() > 0) {
+				sql.append(" and id = " + bean.getId());
+			}
+			if (bean.getName() != null && bean.getName().length() > 0) {
+				sql.append(" and name like '" + bean.getName() + "%'");
+			}
+			if (bean.getDescription() != null && bean.getDescription().length() > 0) {
+				sql.append(" and description like '" + bean.getDescription() + "%'");
+			}
+		}
+
+		return sql.toString();
 	}
 
 	@Override
@@ -83,7 +119,7 @@ public class RoleModel extends BaseModel<RoleBean> {
 
 	@Override
 	public RoleBean getBean() {
-		return null;
+		return new RoleBean();
 	}
 
 }

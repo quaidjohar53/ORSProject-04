@@ -9,10 +9,10 @@ import in.co.rays.proj4.model.StudentModel;
 public class TestStudentModel {
 
 	public static void main(String[] args) {
-		// testadd();
-		// testdelete();
+		 //testadd();
+		//testdelete();
 
-		testupdate();
+		//testupdate();
 	}
 
 	private static void testadd() {
@@ -20,14 +20,15 @@ public class TestStudentModel {
 		StudentBean bean = new StudentBean();
 
 		bean.setCollegeId(1);
-		bean.setCollegeName("DAVV");
+		bean.setCollegeName("Vikram University");
 		bean.setFirstName("quaid");
 		bean.setLastName("johar");
 		bean.setDob(new Date());
-		bean.setMobileNo("694995949494");
+		bean.setMobileNo("8954412665");
 		bean.setEmail("abc@gmail.com");
 		bean.setCreatedBy("abcd");
-		bean.setModifiedBy("fgh");
+		bean.setModifiedBy("xyz");
+		bean.setGender("Male");	
 		bean.setCreatedDatetime(new Timestamp(new Date().getTime()));
 		bean.setModifiedDatetime(new Timestamp(new Date().getTime()));
 
@@ -41,7 +42,7 @@ public class TestStudentModel {
 
 		StudentModel model = new StudentModel();
 
-		model.delete(1);
+		model.delete(2);
 	}
 
 	public static void testupdate() {

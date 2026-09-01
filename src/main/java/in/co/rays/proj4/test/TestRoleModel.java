@@ -9,9 +9,9 @@ import in.co.rays.proj4.model.RoleModel;
 public class TestRoleModel {
 
 	public static void main(String[] args) {
-//		testadd();
-//		testdelete();
-		testupdate();
+	//	testadd();
+	//	testdelete();
+//	testupdate();
 
 	}
 
@@ -19,8 +19,8 @@ public class TestRoleModel {
 
 		RoleBean bean = new RoleBean();
 
-		bean.setName("KIOSK");
-		bean.setDescription("KIOSK Role");
+		bean.setName("Student ");
+		bean.setDescription("Student Role");
 		bean.setCreatedBy("abc");
 		bean.setModifiedBy("fgh");
 		bean.setCreatedDatetime(new Timestamp(new Date().getTime()));
@@ -51,7 +51,7 @@ public class TestRoleModel {
 	public static void testdelete() {
 		RoleModel model = new RoleModel();
 
-		model.delete(1);
+		model.delete(5);
 
 	}
 

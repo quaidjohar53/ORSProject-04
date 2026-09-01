@@ -1,30 +1,23 @@
 package in.co.rays.proj4.bean;
 
 import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class MarksheetBean extends BaseBean {
 
-	private long rollNo;
+	private String rollNo;
 	private long studentId;
 	private String name;
-	private int physics;
-	private int chemistry;
-	private int maths;
+	private Integer physics;
+	private Integer chemistry;
+	private Integer maths;
 
-	public long getRollNo() {
+	public String getRollNo() {
 		return rollNo;
 	}
 
-	public void setRollNo(long rollNo) {
+	public void setRollNo(String rollNo) {
 		this.rollNo = rollNo;
-	}
-
-	public long getStudentId() {
-		return studentId;
-	}
-
-	public void setStudentId(long studentId) {
-		this.studentId = studentId;
 	}
 
 	public String getName() {
@@ -35,51 +28,57 @@ public class MarksheetBean extends BaseBean {
 		this.name = name;
 	}
 
-	public int getPhysics() {
+	public Integer getPhysics() {
 		return physics;
 	}
 
-	public void setPhysics(int physics) {
+	public void setPhysics(Integer physics) {
 		this.physics = physics;
 	}
 
-	public int getChemistry() {
+	public Integer getChemistry() {
 		return chemistry;
 	}
 
-	public void setChemistry(int chemistry) {
+	public void setChemistry(Integer chemistry) {
 		this.chemistry = chemistry;
 	}
 
-	public int getMaths() {
+	public Integer getMaths() {
 		return maths;
 	}
 
-	public void setMaths(int maths) {
+	public void setMaths(Integer maths) {
 		this.maths = maths;
+	}
+
+	public Long getStudentId() {
+		return studentId;
+	}
+
+	public void setStudentId(Long studentId) {
+		this.studentId = studentId;
+	}
+
+	@Override
+	public String getValue() {
+		return rollNo;
 	}
 
 	@Override
 	public void setResultset(ResultSet rs) {
 
-		super.setResultset(rs);
-
 		try {
-
-			this.setRollNo(rs.getLong("ROLL_NO"));
-			this.setStudentId(rs.getLong("STUDENT_ID"));
-			this.setName(rs.getString("NAME"));
-			this.setPhysics(rs.getInt("PHYSICS"));
-			this.setChemistry(rs.getInt("CHEMISTRY"));
-			this.setMaths(rs.getInt("MATHS"));
-
-		} catch (Exception e) {
+			super.setResultset(rs);
+			this.setRollNo(rs.getString(2));
+			this.setStudentId(rs.getLong(3));
+			this.setName(rs.getString(4));
+			this.setPhysics(rs.getInt(5));
+			this.setChemistry(rs.getInt(6));
+			this.setMaths(rs.getInt(7));
+		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}
 
-	@Override
-	public String getValue() {
-		return name;
-	}
 }
