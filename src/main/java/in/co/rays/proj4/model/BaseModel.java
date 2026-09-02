@@ -209,7 +209,6 @@ public abstract class BaseModel<T extends BaseBean> {
 
 	}
 
-	// search all records without pagination without filter
 	public List<T> list() throws ApplicationException {
 		return list(0, 0);
 	}
