@@ -2,17 +2,21 @@ package in.co.rays.proj4.test;
 
 import java.sql.Timestamp;
 import java.util.Date;
+import java.util.Iterator;
+import java.util.List;
 
 import in.co.rays.proj4.bean.FacultyBean;
+import in.co.rays.proj4.bean.UserBean;
 import in.co.rays.proj4.model.FacultyModel;
+import in.co.rays.proj4.model.UserModel;
 
 public class TestFacultyModel {
 	
 	public static void main(String[] args) {
 		//testadd();
 		//testdelete();
-		testupdate();
-		
+		//testupdate();
+		testsearch();
 	}
 	
 
@@ -69,5 +73,29 @@ public class TestFacultyModel {
 		model.update(bean);
 		
 		
+	}
+	
+	public static void testsearch() {
+		FacultyModel model = new FacultyModel();
+		FacultyBean bean = new FacultyBean();
+
+		bean.setCollegeId(101);
+
+		List<FacultyBean> list = model.search(bean, 1, 5);
+
+		Iterator<FacultyBean> it = list.iterator();
+
+		while (it.hasNext()) {
+			bean = it.next();
+
+			System.out.println(bean.getId());
+			System.out.println(bean.getCollegeName());
+			System.out.println(bean.getAddress());
+			System.out.println(bean.getGender());
+			System.out.println(bean.getEmail());
+			System.out.println("-----------------------");
+
+		}
+
 	}
 }

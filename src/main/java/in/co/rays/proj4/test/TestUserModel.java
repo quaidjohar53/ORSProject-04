@@ -82,7 +82,7 @@ public class TestUserModel {
 		UserModel model = new UserModel();
 		UserBean bean = new UserBean();
 
-		bean.setFirstName("Quaid");
+//		bean.setFirstName("Quaid");
 
 		List<UserBean> list = model.search(bean, 1, 5);
 

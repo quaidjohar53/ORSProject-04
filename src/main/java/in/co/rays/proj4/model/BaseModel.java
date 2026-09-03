@@ -148,7 +148,7 @@ public abstract class BaseModel<T extends BaseBean> {
 
 		if (pageSize > 0) {
 			pageNo = (pageNo - 1) * pageSize;
-			sql.append("limit " + pageNo + ", " + pageSize);
+			sql.append(" limit " + pageNo + ", " + pageSize);
 		}
 
 		System.out.println("sql==> " + sql.toString());

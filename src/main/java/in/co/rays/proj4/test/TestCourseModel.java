@@ -2,6 +2,8 @@ package in.co.rays.proj4.test;
 
 import java.sql.Timestamp;
 import java.util.Date;
+import java.util.Iterator;
+import java.util.List;
 
 import in.co.rays.proj4.bean.CourseBean;
 import in.co.rays.proj4.model.CourseModel;
@@ -11,7 +13,9 @@ public class TestCourseModel {
 	public static void main(String[] args) {
 		// testadd();
 		// testdelete();
-		testupdate();
+		// testupdate();
+		testsearch();
+
 	}
 
 	public static void testadd() {
@@ -41,7 +45,7 @@ public class TestCourseModel {
 	public static void testupdate() {
 		CourseBean bean = new CourseBean();
 		CourseModel model = new CourseModel();
-		
+
 		bean.setId(1);
 		bean.setName("Java FullStack");
 		bean.setDescription("Affordable course");
@@ -49,10 +53,33 @@ public class TestCourseModel {
 		bean.setCreatedBy("ABCD");
 		bean.setModifiedBy("XYZ");
 		bean.setModifiedDatetime(new Timestamp(new Date().getTime()));
-		
-		model.update(bean);
-		
 
-		
+		model.update(bean);
+
+	}
+
+	public static void testsearch() {
+		CourseModel model = new CourseModel();
+		CourseBean bean = new CourseBean();
+
+		bean.setName("Java FullStack");
+
+		List<CourseBean> list = model.search(bean, 1, 5);
+
+		Iterator<CourseBean> it = list.iterator();
+
+		while (it.hasNext()) {
+			bean = it.next();
+
+			System.out.println(bean.getId());
+			System.out.println(bean.getName());
+			System.out.println(bean.getDescription());
+			System.out.println(bean.getDuration());
+			System.out.println(bean.getCreatedBy());
+
+			System.out.println("-----------------------");
+
+		}
+
 	}
 }
