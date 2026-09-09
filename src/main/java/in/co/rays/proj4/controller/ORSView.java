@@ -42,8 +42,8 @@ public interface ORSView {
 	public String MARKSHEET_LIST_CTL = APP_CONTEXT + "/ctl/MarksheetListCtl";
 	public String USER_CTL = APP_CONTEXT + "/UserCtl";
 	public String USER_LIST_CTL = APP_CONTEXT + "/UserListCtl";
-	public String COLLEGE_CTL = APP_CONTEXT + "/ctl/CollegeCtl";
-	public String COLLEGE_LIST_CTL = APP_CONTEXT + "/ctl/CollegeListCtl";
+	public String COLLEGE_CTL = APP_CONTEXT + "/CollegeCtl";
+	public String COLLEGE_LIST_CTL = APP_CONTEXT + "/CollegeListCtl";
 	public String STUDENT_CTL = APP_CONTEXT + "/StudentCtl";
 	public String STUDENT_LIST_CTL = APP_CONTEXT + "/StudentListCtl";
 	public String ROLE_CTL = APP_CONTEXT + "/RoleCtl";
@@ -75,7 +75,7 @@ public interface ORSView {
 	public String COURSE_REPORT_CTL = APP_CONTEXT + "/ctl/CourseReportCtl";
 	public String SUBJECT_REPORT_CTL = APP_CONTEXT + "/ctl/SubjectReportCtl";
 	public String MARKSHEET_REPORT_CTL = APP_CONTEXT + "/ctl/MarksheetReportCtl";
-	public String FACULTY_REPORT_CTL = APP_CONTEXT + "/ctl/FacultyReportCtl";
+	public String FACULTY_REPORT_CTL = APP_CONTEXT + "/FacultyReportCtl";
 	public String PRODUCT_CTL = APP_CONTEXT + "/ctl/ProductCtl";
 	public String PRODUCT_LIST_CTL = APP_CONTEXT + "/ctl/ProductListCtl";
 

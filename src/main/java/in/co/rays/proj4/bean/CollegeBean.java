@@ -1,6 +1,7 @@
 package in.co.rays.proj4.bean;
 
 import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class CollegeBean extends BaseBean {
 
@@ -51,25 +52,21 @@ public class CollegeBean extends BaseBean {
 	}
 
 	@Override
-	public void setResultset(ResultSet rs) {
-
-		super.setResultset(rs);
-
-		try {
-			super.setResultset(rs);
-			this.setName(rs.getString("NAME"));
-			this.setAddress(rs.getString("ADDRESS"));
-			this.setState(rs.getString("STATE"));
-			this.setCity(rs.getString("CITY"));
-			this.setPhoneNo(rs.getString("PHONE_NO"));
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+	public String getValue() {
+		return null;
 	}
 
 	@Override
-	public String getValue() {
-		return name;
+	public void setResultset(ResultSet rs) {
+		try {
+			super.setResultset(rs);
+			this.setName(rs.getString(2));
+			this.setAddress(rs.getString(3));
+			this.setState(rs.getString(4));
+			this.setCity(rs.getString(5));
+			this.setPhoneNo(rs.getString(6));
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 }

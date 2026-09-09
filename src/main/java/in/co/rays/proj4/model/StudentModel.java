@@ -117,9 +117,31 @@ public class StudentModel extends BaseModel<StudentBean> {
 
 	@Override
 	public String getWhereClause(StudentBean bean) {
-		return null;
-	}
 
+	    StringBuffer sql = new StringBuffer();
+
+	    if (bean.getFirstName() != null && bean.getFirstName().length() > 0) {
+	        sql.append(" AND FIRST_NAME LIKE '" + bean.getFirstName() + "%'");
+	    }
+
+	    if (bean.getLastName() != null && bean.getLastName().length() > 0) {
+	        sql.append(" AND LAST_NAME LIKE '" + bean.getLastName() + "%'");
+	    }
+
+	    if (bean.getMobileNo() != null && bean.getMobileNo().length() > 0) {
+	        sql.append(" AND MOBILE_NO LIKE '" + bean.getMobileNo() + "%'");
+	    }
+
+	    if (bean.getEmail() != null && bean.getEmail().length() > 0) {
+	        sql.append(" AND EMAIL LIKE '" + bean.getEmail() + "%'");
+	    }
+
+	    if (bean.getCollegeId() != 0) {
+	        sql.append(" AND COLLEGE_ID = " + bean.getCollegeId());
+	    }
+
+	    return sql.toString();
+	}
 	@Override
 	public String getTable() {
 		return "ST_STUDENT";

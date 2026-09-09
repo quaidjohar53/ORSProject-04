@@ -116,7 +116,30 @@ public class CollegeModel extends BaseModel<CollegeBean> {
 
 	@Override
 	public String getWhereClause(CollegeBean bean) {
-		return null;
+
+	    StringBuffer sql = new StringBuffer();
+
+	    if (bean.getName() != null && bean.getName().length() > 0) {
+	        sql.append(" AND NAME LIKE '" + bean.getName() + "%'");
+	    }
+
+	    if (bean.getAddress() != null && bean.getAddress().length() > 0) {
+	        sql.append(" AND ADDRESS LIKE '" + bean.getAddress() + "%'");
+	    }
+
+	    if (bean.getState() != null && bean.getState().length() > 0) {
+	        sql.append(" AND STATE LIKE '" + bean.getState() + "%'");
+	    }
+
+	    if (bean.getCity() != null && bean.getCity().length() > 0) {
+	        sql.append(" AND CITY LIKE '" + bean.getCity() + "%'");
+	    }
+
+	    if (bean.getPhoneNo() != null && bean.getPhoneNo().length() > 0) {
+	        sql.append(" AND PHONE LIKE '" + bean.getPhoneNo() + "%'");
+	    }
+
+	    return sql.toString();
 	}
 
 	@Override
@@ -126,6 +149,6 @@ public class CollegeModel extends BaseModel<CollegeBean> {
 
 	@Override
 	public CollegeBean getBean() {
-		return null;
+		return new CollegeBean();
 	}
 }
