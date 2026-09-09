@@ -35,7 +35,7 @@ public class CourseModel extends BaseModel<CourseBean> {
 			conn = JDBCDataSource.getConnection();
 			conn.setAutoCommit(false); // Begin transaction
 
-			pk = nextPk();
+			pk = nextPK();
 
 			PreparedStatement pstmt = conn.prepareStatement(sql.toString());
 			pstmt.setInt(1, pk);

@@ -40,7 +40,7 @@ public class StudentModel extends BaseModel<StudentBean> {
 
 		try {
 
-			pk = nextPk();
+			pk = nextPK();
 
 			conn = JDBCDataSource.getConnection();
 			conn.setAutoCommit(false);

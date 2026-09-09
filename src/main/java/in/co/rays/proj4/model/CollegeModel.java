@@ -31,7 +31,7 @@ public class CollegeModel extends BaseModel<CollegeBean> {
 			PreparedStatement pstmt = conn
 					.prepareStatement("insert into " + getTable() + " values (?,?,?,?,?,?,?,?,?,?)");
 
-			pstmt.setInt(1, nextPk());
+			pstmt.setInt(1, nextPK());
 			pstmt.setString(2, bean.getName());
 			pstmt.setString(3, bean.getAddress());
 			pstmt.setString(4, bean.getState());

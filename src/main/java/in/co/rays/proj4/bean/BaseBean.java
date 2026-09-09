@@ -7,13 +7,9 @@ import java.sql.Timestamp;
 public abstract class BaseBean implements DropdownListBean {
 
 	protected long id;
-
 	protected String createdBy;
-
 	protected String modifiedBy;
-
 	protected Timestamp createdDatetime;
-
 	protected Timestamp modifiedDatetime;
 
 	public long getId() {
@@ -63,15 +59,14 @@ public abstract class BaseBean implements DropdownListBean {
 			this.setModifiedBy(rs.getString("MODIFIED_BY"));
 			this.setCreatedDatetime(rs.getTimestamp("CREATED_DATETIME"));
 			this.setModifiedDatetime(rs.getTimestamp("MODIFIED_DATETIME"));
-
-		} catch (Exception e) {
+		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-
 	}
 
 	@Override
 	public String getKey() {
-		return null;
+		return id+"";
 	}
+
 }

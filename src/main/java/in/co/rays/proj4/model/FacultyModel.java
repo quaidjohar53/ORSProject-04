@@ -30,7 +30,7 @@ public class FacultyModel extends BaseModel<FacultyBean> {
 		}
 
 		try {
-			pk = nextPk();
+			pk = nextPK();
 			conn = JDBCDataSource.getConnection();
 			conn.setAutoCommit(false);
 			PreparedStatement pstmt = conn.prepareStatement(

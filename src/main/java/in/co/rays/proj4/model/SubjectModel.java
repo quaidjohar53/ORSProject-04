@@ -35,7 +35,7 @@ public class SubjectModel extends BaseModel<SubjectBean> {
 			conn = JDBCDataSource.getConnection();
 			conn.setAutoCommit(false); // Begin transaction
 
-			pk = nextPk();
+			pk = nextPK();
 
 			PreparedStatement pstmt = conn.prepareStatement(sql.toString());
 			pstmt.setInt(1, pk);

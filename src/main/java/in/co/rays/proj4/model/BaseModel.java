@@ -15,9 +15,9 @@ import in.co.rays.proj4.util.JDBCDataSource;
 
 public abstract class BaseModel<T extends BaseBean> {
 
-	public abstract long add(T bean) throws DuplicateRecordException;
+	public abstract long add(T bean) throws ApplicationException, DuplicateRecordException;
 
-	public abstract void update(T bean) throws DuplicateRecordException;
+	public abstract void update(T bean) throws ApplicationException, DuplicateRecordException;
 
 	public abstract String getWhereClause(T bean);
 
@@ -25,51 +25,43 @@ public abstract class BaseModel<T extends BaseBean> {
 
 	public abstract T getBean();
 
-	public Integer nextPk() throws DatabaseException {
+	public Integer nextPK() throws DatabaseException {
 
 		Connection conn = null;
-
 		int pk = 0;
 
 		try {
 			conn = JDBCDataSource.getConnection();
-			PreparedStatement pstmt = conn.prepareStatement("select max(ID) from " + getTable());
+			PreparedStatement pstmt = conn.prepareStatement("SELECT MAX(ID) FROM " + getTable());
 			ResultSet rs = pstmt.executeQuery();
 			while (rs.next()) {
 				pk = rs.getInt(1);
-
 			}
 			rs.close();
 
 		} catch (SQLException e) {
-			e.printStackTrace();
-			throw new DatabaseException("EXception : Exception in getting pk ");
-
+			throw new DatabaseException("Exception : Exception in getting PK");
 		} finally {
 			JDBCDataSource.closeConnection(conn);
-
 		}
-
 		return pk + 1;
+
 	}
 
 	public void delete(int id) throws DatabaseException {
 		Connection conn = null;
 
 		try {
-
 			conn = JDBCDataSource.getConnection();
 			conn.setAutoCommit(false);
 			PreparedStatement pstmt = conn.prepareStatement("delete from " + getTable() + " where id = ?");
 			pstmt.setInt(1, id);
-			pstmt.executeUpdate();
-
+			int i = pstmt.executeUpdate();
+			System.out.println("record deleted: " + i);
 			conn.commit();
-
 		} catch (SQLException e) {
 			e.printStackTrace();
 			JDBCDataSource.trnRollBack(conn);
-
 		} finally {
 			JDBCDataSource.closeConnection(conn);
 		}
@@ -77,32 +69,27 @@ public abstract class BaseModel<T extends BaseBean> {
 	}
 
 	public T findByPK(long pk) throws ApplicationException {
+
 		T bean = null;
 		Connection conn = null;
 
 		try {
-
 			conn = JDBCDataSource.getConnection();
-			PreparedStatement pstmt = conn.prepareStatement("select * from " + getTable() + "where id = ? ");
+			PreparedStatement pstmt = conn.prepareStatement("select * from " + getTable() + " where id = ?");
 			pstmt.setLong(1, pk);
 			ResultSet rs = pstmt.executeQuery();
 			while (rs.next()) {
 				bean = getBean();
 				bean.setResultset(rs);
-
 			}
 			rs.close();
-
 		} catch (Exception e) {
 			e.printStackTrace();
-			throw new ApplicationException("Exception : Exception is getting user by pk ");
-
+			throw new ApplicationException("Exception : Exception in getting User by pk");
 		} finally {
 			JDBCDataSource.closeConnection(conn);
-
 		}
 		return bean;
-
 	}
 
 	public T findByUniqueColumn(String column, String value) {
@@ -112,46 +99,38 @@ public abstract class BaseModel<T extends BaseBean> {
 
 		try {
 			conn = JDBCDataSource.getConnection();
-
 			PreparedStatement pstmt = conn
-					.prepareStatement("select * from " + getTable() + "where " + column + "='" + value + "'");
+					.prepareStatement("select * from " + getTable() + " where " + column + "='" + value + "'");
 			ResultSet rs = pstmt.executeQuery();
-
 			while (rs.next()) {
 				bean = getBean();
 				bean.setResultset(rs);
-
 			}
 			rs.close();
-
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println("Exception: in findByUniqueColumn, " + column + " " + e.getMessage());
-
-		}
-
-		finally {
+		} finally {
 			JDBCDataSource.closeConnection(conn);
 		}
-
 		return bean;
 	}
 
+	// search record with filter(getWhereClause()) + pagination
 	public List<T> search(T bean, int pageNo, int pageSize) throws ApplicationException {
+
 		ArrayList<T> list = new ArrayList<T>();
-
 		Connection conn = null;
-
 		StringBuffer sql = new StringBuffer("select * from " + getTable() + " where 1=1");
 
+		// add search filter from child
 		sql.append(this.getWhereClause(bean));
 
 		if (pageSize > 0) {
-			pageNo = (pageNo - 1) * pageSize;
-			sql.append(" limit " + pageNo + ", " + pageSize);
+			pageNo = (pageNo - 1) * pageSize; // <==== index formula
+			sql.append(" Limit " + pageNo + ", " + pageSize);
 		}
-
-		System.out.println("sql==> " + sql.toString());
+		System.out.println("sql===> " + sql.toString());
 		try {
 			conn = JDBCDataSource.getConnection();
 			PreparedStatement pstmt = conn.prepareStatement(sql.toString());
@@ -162,20 +141,17 @@ public abstract class BaseModel<T extends BaseBean> {
 				list.add(bean);
 			}
 			rs.close();
-
 		} catch (Exception e) {
-
 			e.printStackTrace();
 			throw new ApplicationException("Exception : Exception in search(bean, pageNo, pageSize)");
-
 		} finally {
 			JDBCDataSource.closeConnection(conn);
-
 		}
-		return list;
 
+		return list;
 	}
 
+	// search record with pagination only, without filter(getWhereClause())
 	public List<T> list(int pageNo, int pageSize) throws ApplicationException {
 
 		ArrayList<T> list = new ArrayList<T>();
@@ -185,8 +161,7 @@ public abstract class BaseModel<T extends BaseBean> {
 
 		if (pageSize > 0) {
 			pageNo = (pageNo - 1) * pageSize;
-			sql.append("limit " + pageNo + ", " + pageSize);
-
+			sql.append(" limit " + pageNo + "," + pageSize);
 		}
 
 		try {
@@ -209,6 +184,7 @@ public abstract class BaseModel<T extends BaseBean> {
 
 	}
 
+	// search all records without pagination without filter
 	public List<T> list() throws ApplicationException {
 		return list(0, 0);
 	}

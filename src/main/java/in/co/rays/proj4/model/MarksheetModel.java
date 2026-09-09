@@ -30,7 +30,7 @@ public class MarksheetModel extends BaseModel<MarksheetBean> {
 			conn = JDBCDataSource.getConnection();
 
 			
-			pk = nextPk();
+			pk = nextPK();
 			conn.setAutoCommit(false);
 			PreparedStatement pstmt = conn.prepareStatement("INSERT INTO ST_MARKSHEET VALUES(?,?,?,?,?,?,?,?,?,?,?)");
 			pstmt.setInt(1, pk);

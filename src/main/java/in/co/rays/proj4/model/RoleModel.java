@@ -26,8 +26,8 @@ public class RoleModel extends BaseModel<RoleBean> {
 
 			conn = JDBCDataSource.getConnection();
 			conn.setAutoCommit(false);
-			PreparedStatement pstmt = conn.prepareStatement("inset into " + getTable() + " values(?,?,?,?,?,?,?)");
-			pstmt.setInt(1, nextPk());
+			PreparedStatement pstmt = conn.prepareStatement("insert into " + getTable() + " values(?,?,?,?,?,?,?)");
+			pstmt.setInt(1, nextPK());
 			pstmt.setString(2, bean.getName());
 			pstmt.setString(3, bean.getDescription());
 			pstmt.setString(4, bean.getCreatedBy());
@@ -61,7 +61,7 @@ public class RoleModel extends BaseModel<RoleBean> {
 
 		try {
 			conn = JDBCDataSource.getConnection();
-			conn.setAutoCommit(false);
+			conn.setAutoCommit(false); // Begin transaction
 
 			PreparedStatement pstmt = conn.prepareStatement("update " + getTable()
 					+ " set name = ?, description = ?, createdBy = ?, modifiedBy = ?, createdDatetime = ?, modifiedDatetime = ? where id = ?");
@@ -74,7 +74,7 @@ public class RoleModel extends BaseModel<RoleBean> {
 			pstmt.setLong(7, bean.getId());
 			pstmt.executeUpdate();
 
-			conn.commit(); 
+			conn.commit(); // End transaction
 			pstmt.close();
 
 		} catch (SQLException e) {
