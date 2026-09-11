@@ -44,12 +44,14 @@ public class SubjectBean extends BaseBean {
 			this.setDescription(rs.getString("DESCRIPTION"));
 
 		} catch (Exception e) {
+
 			e.printStackTrace();
 		}
 	}
 
 	@Override
 	public String getValue() {
+
 		return name;
 	}
 }

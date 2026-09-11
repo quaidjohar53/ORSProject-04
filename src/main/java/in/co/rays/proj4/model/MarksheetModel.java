@@ -123,8 +123,38 @@ public class MarksheetModel extends BaseModel<MarksheetBean> {
 	}
 
 	@Override
-	public String getWhereClause(MarksheetBean bean) {
-		return null;
+	public String getWhereClause(
+			MarksheetBean bean) {
+
+		StringBuffer sql =
+				new StringBuffer();
+
+		if (bean.getRollNo() != null
+				&& bean.getRollNo().trim().length() > 0) {
+
+			sql.append(
+					" AND ROLL_NO = '"
+					+ bean.getRollNo()
+					+ "'");
+		}
+
+		if (bean.getStudentId() != 0) {
+
+			sql.append(
+					" AND STUDENT_ID = "
+					+ bean.getStudentId());
+		}
+
+		if (bean.getName() != null
+				&& bean.getName().trim().length() > 0) {
+
+			sql.append(
+					" AND NAME LIKE '"
+					+ bean.getName()
+					+ "%'");
+		}
+
+		return sql.toString();
 	}
 
 }

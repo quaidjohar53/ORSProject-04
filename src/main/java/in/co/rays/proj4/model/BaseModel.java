@@ -92,7 +92,7 @@ public abstract class BaseModel<T extends BaseBean> {
 		return bean;
 	}
 
-	public T findByUniqueColumn(String column, String value) {
+	public T findByUniqueColumn(String column, String rollNo) {
 
 		T bean = null;
 		Connection conn = null;
@@ -100,7 +100,7 @@ public abstract class BaseModel<T extends BaseBean> {
 		try {
 			conn = JDBCDataSource.getConnection();
 			PreparedStatement pstmt = conn
-					.prepareStatement("select * from " + getTable() + " where " + column + "='" + value + "'");
+					.prepareStatement("select * from " + getTable() + " where " + column + "='" + rollNo + "'");
 			ResultSet rs = pstmt.executeQuery();
 			while (rs.next()) {
 				bean = getBean();
