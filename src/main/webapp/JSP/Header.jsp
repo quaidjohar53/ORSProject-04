@@ -1,53 +1,56 @@
 <%@page import="in.co.rays.proj4.controller.ORSView"%>
 <%@page import="in.co.rays.proj4.bean.UserBean"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
 
 <!DOCTYPE html>
+
 <html>
 
 <head>
 
 <meta charset="UTF-8">
 
-<title>ORS Project</title>
+<title>ORS</title>
 
+
+<!-- Bootstrap CSS -->
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
 	rel="stylesheet"
 	integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
 	crossorigin="anonymous">
 
+
 </head>
 
 <body>
 
+
 	<%
 	UserBean userBean = (UserBean) session.getAttribute("user");
+
 	String roleName = (String) session.getAttribute("role");
+
 	boolean isLogin = userBean != null;
+
 	String welcomeMsg = "Hi, ";
 	%>
 
 
-	<!-- Bootstrap Navbar -->
+	<!-- ================= NAVBAR ================= -->
+
 	<nav class="navbar navbar-dark bg-dark navbar-expand-lg">
 
 		<div class="container-fluid">
 
 
-			<!-- Logo -->
-			<a class="navbar-brand" href="<%=ORSView.WELCOME_CTL%>"> <img
-				src="<%=ORSView.APP_CONTEXT%>/img/customLogo.jpg" width="175"
-				height="50">
-
-			</a>
 
 
-			<!-- Mobile Menu Button -->
+
+			<!-- ================= MOBILE BUTTON ================= -->
+
 			<button class="navbar-toggler" type="button"
-				data-bs-toggle="collapse" data-bs-target="#navbarNav"
-				aria-controls="navbarNav" aria-expanded="false"
+				data-bs-toggle="collapse" data-bs-target="#navbarContent"
+				aria-controls="navbarContent" aria-expanded="false"
 				aria-label="Toggle navigation">
 
 				<span class="navbar-toggler-icon"></span>
@@ -55,7 +58,9 @@
 			</button>
 
 
-			<div class="collapse navbar-collapse" id="navbarNav">
+			<!-- ================= NAVBAR CONTENT ================= -->
+
+			<div class="collapse navbar-collapse" id="navbarContent">
 
 
 				<%
@@ -63,16 +68,16 @@
 				%>
 
 
-				<!-- Logged In User -->
-				<span class="navbar-text text-white me-3"> <b><%=welcomeMsg + userBean.getFirstName() + "(" + roleName + ")"%></b>
+				<!-- ================= WELCOME ================= -->
+
+				<span class="navbar-text text-white fw-bold me-4"> <%=welcomeMsg + userBean.getFirstName() + "(" + roleName + ")"%>
 
 				</span>
 
 
-				<ul class="navbar-nav">
+				<!-- ================= ACADEMIC ================= -->
 
-
-					<!-- ================= ACADEMIC ================= -->
+				<ul class="navbar-nav me-2">
 
 					<li class="nav-item dropdown"><a
 						class="nav-link dropdown-toggle" href="#" id="academicDropdown"
@@ -81,31 +86,44 @@
 							Academic </a>
 
 
-						<ul class="dropdown-menu" aria-labelledby="academicDropdown">
+						<ul class="dropdown-menu">
+
+
+							<!-- College -->
 
 							<li><a class="dropdown-item" href="<%=ORSView.COLLEGE_CTL%>">
 
 									Add College </a></li>
 
+
 							<li><a class="dropdown-item"
 								href="<%=ORSView.COLLEGE_LIST_CTL%>"> College List </a></li>
 
 
-							<li><hr class="dropdown-divider"></li>
+							<li>
+								<hr class="dropdown-divider">
+							</li>
 
+
+							<!-- Course -->
 
 							<li><a class="dropdown-item" href="<%=ORSView.COURSE_CTL%>">
 
 									Add Course </a></li>
 
+
 							<li><a class="dropdown-item"
 								href="<%=ORSView.COURSE_LIST_CTL%>"> Course List </a></li>
 
+
 						</ul></li>
 
+				</ul>
 
 
-					<!-- ================= STUDENT ================= -->
+				<!-- ================= STUDENT ================= -->
+
+				<ul class="navbar-nav me-2">
 
 					<li class="nav-item dropdown"><a
 						class="nav-link dropdown-toggle" href="#" id="studentDropdown"
@@ -114,8 +132,10 @@
 							Student </a>
 
 
-						<ul class="dropdown-menu" aria-labelledby="studentDropdown">
+						<ul class="dropdown-menu">
 
+
+							<!-- Student -->
 
 							<li><a class="dropdown-item" href="<%=ORSView.STUDENT_CTL%>">
 
@@ -126,8 +146,12 @@
 								href="<%=ORSView.STUDENT_LIST_CTL%>"> Student List </a></li>
 
 
-							<li><hr class="dropdown-divider"></li>
+							<li>
+								<hr class="dropdown-divider">
+							</li>
 
+
+							<!-- Faculty -->
 
 							<li><a class="dropdown-item" href="<%=ORSView.FACULTY_CTL%>">
 
@@ -137,11 +161,15 @@
 							<li><a class="dropdown-item"
 								href="<%=ORSView.FACULTY_LIST_CTL%>"> Faculty List </a></li>
 
+
 						</ul></li>
 
+				</ul>
 
 
-					<!-- ================= MODULES ================= -->
+				<!-- ================= MODULES ================= -->
+
+				<ul class="navbar-nav me-2">
 
 					<li class="nav-item dropdown"><a
 						class="nav-link dropdown-toggle" href="#" id="modulesDropdown"
@@ -150,8 +178,10 @@
 							Modules </a>
 
 
-						<ul class="dropdown-menu" aria-labelledby="modulesDropdown">
+						<ul class="dropdown-menu">
 
+
+							<!-- Role -->
 
 							<li><a class="dropdown-item" href="<%=ORSView.ROLE_CTL%>">
 
@@ -162,8 +192,12 @@
 								href="<%=ORSView.ROLE_LIST_CTL%>"> Role List </a></li>
 
 
-							<li><hr class="dropdown-divider"></li>
+							<li>
+								<hr class="dropdown-divider">
+							</li>
 
+
+							<!-- User -->
 
 							<li><a class="dropdown-item" href="<%=ORSView.USER_CTL%>">
 
@@ -174,8 +208,12 @@
 								href="<%=ORSView.USER_LIST_CTL%>"> User List </a></li>
 
 
-							<li><hr class="dropdown-divider"></li>
+							<li>
+								<hr class="dropdown-divider">
+							</li>
 
+
+							<!-- Marksheet -->
 
 							<li><a class="dropdown-item"
 								href="<%=ORSView.MARKSHEET_CTL%>"> Add Marksheet </a></li>
@@ -185,8 +223,12 @@
 								href="<%=ORSView.MARKSHEET_LIST_CTL%>"> Marksheet List </a></li>
 
 
-							<li><hr class="dropdown-divider"></li>
+							<li>
+								<hr class="dropdown-divider">
+							</li>
 
+
+							<!-- Subject -->
 
 							<li><a class="dropdown-item" href="<%=ORSView.SUBJECT_CTL%>">
 
@@ -196,25 +238,21 @@
 							<li><a class="dropdown-item"
 								href="<%=ORSView.SUBJECT_LIST_CTL%>"> Subject List </a></li>
 
+
 						</ul></li>
 
-
-
-					<!-- ================= LOGOUT ================= -->
-
-					<li class="nav-item"><a class="nav-link text-danger"
-						href="LoginCtl?operation=logout"> <b>Logout</b>
-
-					</a></li>
-
-
 				</ul>
+
+
+				<!-- ================= LOGOUT ================= -->
+
+				<a class="nav-link text-danger fw-bold ms-2"
+					href="LoginCtl?operation=logout"> Logout </a>
 
 
 				<%
 				}
 				%>
-
 
 
 				<%
@@ -222,33 +260,30 @@
 				%>
 
 
-				<ul class="navbar-nav">
+				<!-- ================= GUEST ================= -->
 
+				<span class="navbar-text text-white fw-bold me-4"> Hi, Guest
 
-					<li class="nav-item"><a class="nav-link"
-						href="<%=ORSView.WELCOME_CTL%>"> <b>Welcome</b>
+				</span> <a class="nav-link" href="<%=ORSView.WELCOME_CTL%>"> Welcome </a> <a
+					class="nav-link" href="<%=ORSView.LOGIN_CTL%>"> Login </a> <a
+					class="nav-link" href="<%=ORSView.USER_REGISTRATION_CTL%>">
 
-					</a></li>
-
-
-					<li class="nav-item"><a class="nav-link"
-						href="<%=ORSView.LOGIN_CTL%>"> <b>Login</b>
-
-					</a></li>
-
-
-					<li class="nav-item"><a class="nav-link"
-						href="<%=ORSView.USER_REGISTRATION_CTL%>"> <b>SignUp</b>
-
-					</a></li>
-
-
-				</ul>
+					SignUp </a>
 
 
 				<%
 				}
 				%>
+
+
+				<!-- ================= RIGHT RAYS LOGO ================= -->
+
+				<div class="ms-auto">
+
+					<img src="<%=ORSView.APP_CONTEXT%>/img/customLogo.jpg" width="220"
+						height="65" alt="RAYS Logo">
+
+				</div>
 
 
 			</div>
@@ -261,12 +296,15 @@
 	<hr>
 
 
+	<!-- Bootstrap JavaScript -->
+
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
 		integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
 		crossorigin="anonymous">
 		
 	</script>
+
 
 </body>
 
