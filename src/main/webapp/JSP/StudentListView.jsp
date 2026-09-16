@@ -1,11 +1,12 @@
 <%@page import="in.co.rays.proj4.util.ServletUtility"%>
 <%@page import="in.co.rays.proj4.controller.BaseCtl"%>
-<%@page import="in.co.rays.proj4.bean.StudentBean"%>
 <%@page import="in.co.rays.proj4.controller.ORSView"%>
+<%@page import="in.co.rays.proj4.bean.StudentBean"%>
 <%@page import="java.util.Iterator"%>
 <%@page import="java.util.List"%>
 
 <!DOCTYPE html>
+
 <html>
 
 <head>
@@ -19,6 +20,7 @@
 <body>
 
 	<%@ include file="Header.jsp"%>
+
 
 	<%
 	int pageNo = ServletUtility.getPageNo(request);
@@ -39,21 +41,38 @@
 
 	<form action="<%=ORSView.STUDENT_LIST_CTL%>" method="post">
 
-		<div align="center">
 
-			<h1>Student List</h1>
+		<div class="container-fluid">
 
 
-			<h3 style="color: green">
+			<!-- Heading -->
+
+			<div class="text-center mt-4 mb-3">
+
+				<h1>Student List</h1>
+
+			</div>
+
+
+			<!-- Success Message -->
+
+			<h5 class="text-success text-center">
+
 				<%=_suc != null ? _suc : ""%>
-			</h3>
 
-			<h3 style="color: red">
+			</h5>
+
+
+			<!-- Error Message -->
+
+			<h5 class="text-danger text-center">
+
 				<%=_err != null ? _err : ""%>
-			</h3>
+
+			</h5>
 
 
-			<!-- Hidden pagination values -->
+			<!-- Hidden Pagination Values -->
 
 			<input type="hidden" name="pageNo" value="<%=pageNo%>"> <input
 				type="hidden" name="pageSize" value="<%=pageSize%>">
@@ -61,146 +80,194 @@
 
 			<!-- Search -->
 
-			<table>
-
-				<tr>
-
-					<td><input type="text" name="firstName" value=""
-						placeholder="search by first name"></td>
+			<div class="row justify-content-center mb-3">
 
 
-					<td><input type="text" name="lastName" value=""
-						placeholder="search by last name"></td>
+				<div class="col-md-2">
+
+					<input type="text" name="firstName" value=""
+						placeholder="Search by first name" class="form-control">
+
+				</div>
 
 
-					<td><input type="text" name="mobileNo" value=""
-						placeholder="search by mobile"></td>
+				<div class="col-md-2">
+
+					<input type="text" name="lastName" value=""
+						placeholder="Search by last name" class="form-control">
+
+				</div>
 
 
-					<td><input type="text" name="email" value=""
-						placeholder="search by email"></td>
+				<div class="col-md-2">
+
+					<input type="text" name="rollNo" value=""
+						placeholder="Search by roll no" class="form-control">
+
+				</div>
 
 
-					<td><input type="text" name="collegeId" value=""
-						placeholder="search by college id"></td>
+				<div class="col-md-2">
+
+					<input type="text" name="email" value=""
+						placeholder="Search by email" class="form-control">
+
+				</div>
 
 
-					<td><input type="submit" name="operation"
-						value="<%=BaseCtl.OP_SEARCH%>"></td>
+				<div class="col-md-2">
 
-				</tr>
+					<input type="text" name="collegeId" value=""
+						placeholder="Search by college" class="form-control">
 
-			</table>
-
-
-			<!-- Student table -->
-
-			<table border="1px" width="100%">
-
-				<tr style="background-color: skyblue">
-
-					<th><input type="checkbox"
-						onclick="document.querySelectorAll('input[name=ids]').forEach(c=>c.checked=this.checked)">
-
-					</th>
+				</div>
 
 
-					<th>S.No</th>
+				<div class="col-md-1">
 
-					<th>First Name</th>
+					<input type="submit" name="operation"
+						value="<%=BaseCtl.OP_SEARCH%>" class="btn btn-primary">
 
-					<th>Last Name</th>
-
-					<th>DOB</th>
-
-					<th>Mobile No</th>
-
-					<th>Email</th>
-
-					<th>College Id</th>
-
-				</tr>
+				</div>
 
 
-				<%
-				while (it.hasNext()) {
-
-					StudentBean bean = it.next();
-				%>
+			</div>
 
 
-				<tr align="center" style="background-color: lightgrey">
+			<!-- Student Table -->
+
+			<div class="table-responsive">
+
+				<table class="table table-bordered table-hover align-middle">
 
 
-					<td><input type="checkbox" name="ids"
-						value="<%=bean.getId()%>"></td>
+					<thead class="table-info">
+
+						<tr>
 
 
-					<td><%=index++%></td>
+							<th><input type="checkbox"
+								onclick="document.querySelectorAll('input[name=ids]').forEach(e=>e.checked=this.checked)">
+
+							</th>
 
 
-					<td><%=bean.getFirstName()%></td>
+							<th>S.No</th>
+
+							<th>First Name</th>
+
+							<th>Last Name</th>
+
+							<th>DOB</th>
+
+							<th>Mobile No</th>
+
+							<th>Email</th>
+
+							<th>College Id</th>
 
 
-					<td><%=bean.getLastName()%></td>
+						</tr>
+
+					</thead>
 
 
-					<td><%=bean.getDob()%></td>
+					<tbody>
 
 
-					<td><%=bean.getMobileNo()%></td>
+						<%
+						while (it.hasNext()) {
+
+							StudentBean bean = it.next();
+						%>
 
 
-					<td><%=bean.getEmail()%></td>
+						<tr>
 
 
-					<td><%=bean.getCollegeId()%></td>
+							<td><input type="checkbox" name="ids"
+								value="<%=bean.getId()%>"></td>
 
 
-				</tr>
+							<td><%=index++%></td>
 
 
-				<%
-				}
-				%>
+							<td><%=bean.getFirstName()%></td>
 
 
-			</table>
-
-		</div>
+							<td><%=bean.getLastName()%></td>
 
 
-		<!-- Pagination -->
+							<td><%=bean.getDob()%></td>
 
-		<table width="100%">
 
-			<tr>
+							<td><%=bean.getMobileNo()%></td>
+
+
+							<td><%=bean.getEmail()%></td>
+
+
+							<td><%=bean.getCollegeId()%></td>
+
+
+						</tr>
+
+
+						<%
+						}
+						%>
+
+
+					</tbody>
+
+
+				</table>
+
+			</div>
+
+
+			<!-- Pagination -->
+
+			<div class="row mt-3">
 
 
 				<!-- Previous -->
 
-				<td><input type="submit" name="operation"
-					<%=pageNo == 1 ? "disabled" : ""%> value="<%=BaseCtl.OP_PREVIOUS%>">
+				<div class="col-md-4">
 
-				</td>
+					<input type="submit" name="operation"
+						value="<%=BaseCtl.OP_PREVIOUS%>"
+						<%=pageNo == 1 ? "disabled" : ""%>
+						class="btn btn-outline-secondary">
+
+				</div>
 
 
 				<!-- Delete -->
 
-				<td align="center"><input type="submit" name="operation"
-					value="<%=BaseCtl.OP_DELETE%>"></td>
+				<div class="col-md-4 text-center">
+
+					<input type="submit" name="operation"
+						value="<%=BaseCtl.OP_DELETE%>" class="btn btn-danger">
+
+				</div>
 
 
 				<!-- Next -->
 
-				<td align="right"><input type="submit" name="operation"
-					<%=list.size() < 10 ? "disabled" : ""%>
-					value="<%=BaseCtl.OP_NEXT%>"></td>
+				<div class="col-md-4 text-end">
+
+					<input type="submit" name="operation" value="<%=BaseCtl.OP_NEXT%>"
+						<%=list.size() < 10 ? "disabled" : ""%>
+						class="btn btn-outline-secondary">
+
+				</div>
 
 
-			</tr>
+			</div>
 
-		</table>
+
+		</div>
 
 
 	</form>

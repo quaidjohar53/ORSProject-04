@@ -21,6 +21,7 @@
 
 	<%@ include file="Header.jsp"%>
 
+
 	<%
 	SubjectBean bean = (SubjectBean) request.getAttribute("bean");
 
@@ -35,109 +36,153 @@
 	<form action="<%=ORSView.SUBJECT_CTL%>" method="post">
 
 
-		<div align="center">
+		<div class="container">
 
-			<h1>Add Subject</h1>
+			<div class="row justify-content-center mt-4">
 
+				<div class="col-md-6">
 
-			<h3 style="color: green">
-				<%=_suc%>
-			</h3>
-
-			<h3 style="color: red">
-				<%=_err%>
-			</h3>
+					<div class="card shadow">
 
 
-			<table>
+						<!-- Card Header -->
+
+						<div class="card-header text-center">
+
+							<h2>Add Subject</h2>
+
+						</div>
 
 
-				<!-- Subject Name -->
-
-				<tr>
-
-					<th>Name<font color="red">*</font>
-					</th>
-
-					<td><input type="text" name="name"
-						value="<%=bean != null ? bean.getName() : ""%>"
-						placeholder="enter subject name"></td>
-
-					<td style="color: red"><%=ServletUtility.getErrorMessage("name", request)%></td>
-
-				</tr>
+						<div class="card-body">
 
 
-				<!-- Course -->
+							<!-- Success Message -->
 
-				<tr>
+							<h5 class="text-success text-center">
 
-					<th>Course<font color="red">*</font>
-					</th>
+								<%=_suc%>
 
-					<td><select name="courseId">
-
-							<option value="">Select Course</option>
+							</h5>
 
 
-							<%
-							if (courseList != null) {
+							<!-- Error Message -->
 
-								for (CourseBean course : courseList) {
-							%>
+							<h5 class="text-danger text-center">
 
+								<%=_err%>
 
-							<option value="<%=course.getId()%>"
-								<%=bean != null && bean.getCourseId() == course.getId() ? "selected" : ""%>>
-
-								<%=course.getName()%>
-
-							</option>
+							</h5>
 
 
-							<%
-							}
-							}
-							%>
+							<!-- Subject Name -->
 
-					</select></td>
+							<div class="mb-3">
 
-					<td style="color: red"><%=ServletUtility.getErrorMessage("courseId", request)%></td>
+								<label class="form-label"> Name <span
+									class="text-danger">*</span>
 
-				</tr>
-
-
-				<!-- Description -->
-
-				<tr>
-
-					<th>Description<font color="red">*</font>
-					</th>
-
-					<td><input type="text" name="description"
-						value="<%=bean != null ? bean.getDescription() : ""%>"
-						placeholder="enter subject description"></td>
-
-					<td style="color: red"><%=ServletUtility.getErrorMessage("description", request)%></td>
-
-				</tr>
+								</label> <input type="text" name="name"
+									value="<%=bean != null ? bean.getName() : ""%>"
+									placeholder="Enter subject name" class="form-control">
 
 
-				<!-- Save -->
+								<div class="text-danger">
 
-				<tr>
+									<%=ServletUtility.getErrorMessage("name", request)%>
 
-					<th></th>
+								</div>
 
-					<td><input type="submit" name="operation"
-						value="<%=BaseCtl.OP_SAVE%>"></td>
-
-				</tr>
+							</div>
 
 
-			</table>
+							<!-- Course -->
+
+							<div class="mb-3">
+
+								<label class="form-label"> Course <span
+									class="text-danger">*</span>
+
+								</label> <select name="courseId" class="form-select">
+
+
+									<option value="">Select Course</option>
+
+
+									<%
+									if (courseList != null) {
+
+										for (CourseBean course : courseList) {
+									%>
+
+
+									<option value="<%=course.getId()%>"
+										<%=bean != null && bean.getCourseId() == course.getId() ? "selected" : ""%>>
+
+										<%=course.getName()%>
+
+									</option>
+
+
+									<%
+									}
+									}
+									%>
+
+
+								</select>
+
+
+								<div class="text-danger">
+
+									<%=ServletUtility.getErrorMessage("courseId", request)%>
+
+								</div>
+
+							</div>
+
+
+							<!-- Description -->
+
+							<div class="mb-3">
+
+								<label class="form-label"> Description <span
+									class="text-danger">*</span>
+
+								</label> <input type="text" name="description"
+									value="<%=bean != null ? bean.getDescription() : ""%>"
+									placeholder="Enter subject description" class="form-control">
+
+
+								<div class="text-danger">
+
+									<%=ServletUtility.getErrorMessage("description", request)%>
+
+								</div>
+
+							</div>
+
+
+							<!-- Save -->
+
+							<div class="text-center">
+
+								<input type="submit" name="operation"
+									value="<%=BaseCtl.OP_SAVE%>" class="btn btn-primary">
+
+							</div>
+
+
+						</div>
+
+					</div>
+
+				</div>
+
+			</div>
 
 		</div>
+
 
 	</form>
 

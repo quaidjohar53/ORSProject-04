@@ -35,139 +35,193 @@
 	<form action="<%=ORSView.MARKSHEET_CTL%>" method="post">
 
 
-		<div align="center">
+		<div class="container">
 
-			<h1>Add Marksheet</h1>
+			<div class="row justify-content-center mt-4">
 
+				<div class="col-md-6">
 
-			<h3 style="color: green">
-				<%=_suc%>
-			</h3>
-
-			<h3 style="color: red">
-				<%=_err%>
-			</h3>
+					<div class="card shadow">
 
 
-			<table>
+						<div class="card-header text-center">
+
+							<h2>Add Marksheet</h2>
+
+						</div>
 
 
-				<!-- Roll No -->
-
-				<tr>
-
-					<th>Roll No<font color="red">*</font>
-					</th>
-
-					<td><input type="text" name="rollNo"
-						value="<%=bean != null ? bean.getRollNo() : ""%>"
-						placeholder="enter roll no"></td>
-
-					<td style="color: red"><%=ServletUtility.getErrorMessage("rollNo", request)%></td>
-
-				</tr>
+						<div class="card-body">
 
 
-				<!-- Student -->
+							<!-- Success Message -->
 
-				<tr>
+							<h5 class="text-success text-center">
 
-					<th>Student<font color="red">*</font>
-					</th>
+								<%=_suc%>
 
-					<td><select name="studentId">
-
-							<option value="">Select Student</option>
-
-							<%
-							if (studentList != null) {
-
-								for (StudentBean student : studentList) {
-							%>
-
-							<option value="<%=student.getId()%>"
-								<%=bean != null && bean.getStudentId() == student.getId() ? "selected" : ""%>>
-
-								<%=student.getFirstName()%>
-								<%=student.getLastName()%>
-
-							</option>
-
-							<%
-							}
-							}
-							%>
-
-					</select></td>
-
-					<td style="color: red"><%=ServletUtility.getErrorMessage("studentId", request)%></td>
-
-				</tr>
+							</h5>
 
 
-				<!-- Physics -->
+							<!-- Error Message -->
 
-				<tr>
+							<h5 class="text-danger text-center">
 
-					<th>Physics<font color="red">*</font>
-					</th>
+								<%=_err%>
 
-					<td><input type="text" name="physics"
-						value="<%=bean != null && bean.getPhysics() != null ? bean.getPhysics() : ""%>"
-						placeholder="enter physics marks"></td>
-
-					<td style="color: red"><%=ServletUtility.getErrorMessage("physics", request)%></td>
-
-				</tr>
+							</h5>
 
 
-				<!-- Chemistry -->
+							<!-- Roll No -->
 
-				<tr>
+							<div class="mb-3">
 
-					<th>Chemistry<font color="red">*</font>
-					</th>
+								<label class="form-label"> Roll No <span
+									class="text-danger">*</span>
 
-					<td><input type="text" name="chemistry"
-						value="<%=bean != null && bean.getChemistry() != null ? bean.getChemistry() : ""%>"
-						placeholder="enter chemistry marks"></td>
-
-					<td style="color: red"><%=ServletUtility.getErrorMessage("chemistry", request)%></td>
-
-				</tr>
+								</label> <input type="text" name="rollNo"
+									value="<%=bean != null ? bean.getRollNo() : ""%>"
+									placeholder="Enter roll no" class="form-control">
 
 
-				<!-- Maths -->
+								<div class="text-danger">
 
-				<tr>
+									<%=ServletUtility.getErrorMessage("rollNo", request)%>
 
-					<th>Maths<font color="red">*</font>
-					</th>
+								</div>
 
-					<td><input type="text" name="maths"
-						value="<%=bean != null && bean.getMaths() != null ? bean.getMaths() : ""%>"
-						placeholder="enter maths marks"></td>
-
-					<td style="color: red"><%=ServletUtility.getErrorMessage("maths", request)%></td>
-
-				</tr>
+							</div>
 
 
-				<!-- Save -->
+							<!-- Student -->
 
-				<tr>
+							<div class="mb-3">
 
-					<th></th>
+								<label class="form-label"> Student <span
+									class="text-danger">*</span>
 
-					<td><input type="submit" name="operation"
-						value="<%=BaseCtl.OP_SAVE%>"></td>
-
-				</tr>
+								</label> <select name="studentId" class="form-select">
 
 
-			</table>
+									<option value="">Select Student</option>
+
+
+									<%
+									if (studentList != null) {
+
+										for (StudentBean student : studentList) {
+									%>
+
+
+									<option value="<%=student.getId()%>">
+
+										<%=student.getFirstName()%>
+										<%=student.getLastName()%>
+
+									</option>
+
+
+									<%
+									}
+									}
+									%>
+
+
+								</select>
+
+
+								<div class="text-danger">
+
+									<%=ServletUtility.getErrorMessage("studentId", request)%>
+
+								</div>
+
+							</div>
+
+
+							<!-- Physics -->
+
+							<div class="mb-3">
+
+								<label class="form-label"> Physics <span
+									class="text-danger">*</span>
+
+								</label> <input type="text" name="physics"
+									value="<%=bean != null ? bean.getPhysics() : ""%>"
+									placeholder="Enter physics marks" class="form-control">
+
+
+								<div class="text-danger">
+
+									<%=ServletUtility.getErrorMessage("physics", request)%>
+
+								</div>
+
+							</div>
+
+
+							<!-- Chemistry -->
+
+							<div class="mb-3">
+
+								<label class="form-label"> Chemistry <span
+									class="text-danger">*</span>
+
+								</label> <input type="text" name="chemistry"
+									value="<%=bean != null ? bean.getChemistry() : ""%>"
+									placeholder="Enter chemistry marks" class="form-control">
+
+
+								<div class="text-danger">
+
+									<%=ServletUtility.getErrorMessage("chemistry", request)%>
+
+								</div>
+
+							</div>
+
+
+							<!-- Maths -->
+
+							<div class="mb-3">
+
+								<label class="form-label"> Maths <span
+									class="text-danger">*</span>
+
+								</label> <input type="text" name="maths"
+									value="<%=bean != null ? bean.getMaths() : ""%>"
+									placeholder="Enter maths marks" class="form-control">
+
+
+								<div class="text-danger">
+
+									<%=ServletUtility.getErrorMessage("maths", request)%>
+
+								</div>
+
+							</div>
+
+
+							<!-- Save -->
+
+							<div class="text-center">
+
+								<input type="submit" name="operation"
+									value="<%=BaseCtl.OP_SAVE%>" class="btn btn-primary">
+
+							</div>
+
+
+						</div>
+
+					</div>
+
+				</div>
+
+			</div>
 
 		</div>
+
 
 	</form>
 

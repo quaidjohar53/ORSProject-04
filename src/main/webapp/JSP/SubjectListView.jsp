@@ -21,6 +21,7 @@
 
 	<%@ include file="Header.jsp"%>
 
+
 	<%
 	int pageNo = ServletUtility.getPageNo(request);
 
@@ -41,19 +42,37 @@
 	<form action="<%=ORSView.SUBJECT_LIST_CTL%>" method="post">
 
 
-		<div align="center">
-
-			<h1>Subject List</h1>
+		<div class="container-fluid">
 
 
-			<h3 style="color: green">
+			<!-- Heading -->
+
+			<div class="text-center mt-4 mb-3">
+
+				<h1>Subject List</h1>
+
+			</div>
+
+
+			<!-- Success Message -->
+
+			<h5 class="text-success text-center">
+
 				<%=_suc != null ? _suc : ""%>
-			</h3>
 
-			<h3 style="color: red">
+			</h5>
+
+
+			<!-- Error Message -->
+
+			<h5 class="text-danger text-center">
+
 				<%=_err != null ? _err : ""%>
-			</h3>
 
+			</h5>
+
+
+			<!-- Hidden Pagination Values -->
 
 			<input type="hidden" name="pageNo" value="<%=pageNo%>"> <input
 				type="hidden" name="pageSize" value="<%=pageSize%>">
@@ -61,109 +80,165 @@
 
 			<!-- Search -->
 
-			<table>
-
-				<tr>
-
-					<td><input type="text" name="name" value=""
-						placeholder="search by subject"></td>
-
-					<td><input type="text" name="courseId" value=""
-						placeholder="search by course id"></td>
-
-					<td><input type="text" name="description" value=""
-						placeholder="search by description"></td>
-
-					<td><input type="submit" name="operation"
-						value="<%=BaseCtl.OP_SEARCH%>"></td>
-
-				</tr>
-
-			</table>
+			<div class="row justify-content-center mb-3">
 
 
-			<!-- Subject table -->
+				<div class="col-md-3">
 
-			<table border="1px" width="100%">
+					<input type="text" name="name" value=""
+						placeholder="Search by subject" class="form-control">
 
-				<tr style="background-color: skyblue">
-
-					<th><input type="checkbox"
-						onclick="document.querySelectorAll('input[name=ids]').forEach(c=>c.checked=this.checked)">
-
-					</th>
-
-					<th>S.No</th>
-
-					<th>Name</th>
-
-					<th>Course Id</th>
-
-					<th>Description</th>
-
-				</tr>
+				</div>
 
 
-				<%
-				while (it.hasNext()) {
+				<div class="col-md-3">
 
-					SubjectBean bean = it.next();
-				%>
+					<input type="text" name="courseId" value=""
+						placeholder="Search by course id" class="form-control">
 
-
-				<tr align="center" style="background-color: lightgrey">
+				</div>
 
 
-					<td><input type="checkbox" name="ids"
-						value="<%=bean.getId()%>"></td>
+				<div class="col-md-3">
+
+					<input type="text" name="description" value=""
+						placeholder="Search by description" class="form-control">
+
+				</div>
 
 
-					<td><%=index++%></td>
+				<div class="col-md-1">
+
+					<input type="submit" name="operation"
+						value="<%=BaseCtl.OP_SEARCH%>" class="btn btn-primary">
+
+				</div>
 
 
-					<td><%=bean.getName()%></td>
+			</div>
 
 
-					<td><%=bean.getCourseId()%></td>
+			<!-- Subject Table -->
+
+			<div class="table-responsive">
+
+				<table class="table table-bordered table-hover align-middle">
 
 
-					<td><%=bean.getDescription()%></td>
+					<thead class="table-info">
 
 
-				</tr>
+						<tr>
 
 
-				<%
-				}
-				%>
+							<th><input type="checkbox"
+								onclick="document.querySelectorAll('input[name=ids]').forEach(e=>e.checked=this.checked)">
 
-			</table>
+							</th>
+
+
+							<th>S.No</th>
+
+							<th>Name</th>
+
+							<th>Course Id</th>
+
+							<th>Description</th>
+
+
+						</tr>
+
+
+					</thead>
+
+
+					<tbody>
+
+
+						<%
+						while (it.hasNext()) {
+
+							SubjectBean bean = it.next();
+						%>
+
+
+						<tr>
+
+
+							<td><input type="checkbox" name="ids"
+								value="<%=bean.getId()%>"></td>
+
+
+							<td><%=index++%></td>
+
+
+							<td><%=bean.getName()%></td>
+
+
+							<td><%=bean.getCourseId()%></td>
+
+
+							<td><%=bean.getDescription()%></td>
+
+
+						</tr>
+
+
+						<%
+						}
+						%>
+
+
+					</tbody>
+
+
+				</table>
+
+			</div>
+
+
+			<!-- Pagination -->
+
+			<div class="row mt-3">
+
+
+				<!-- Previous -->
+
+				<div class="col-md-4">
+
+					<input type="submit" name="operation"
+						value="<%=BaseCtl.OP_PREVIOUS%>"
+						<%=pageNo == 1 ? "disabled" : ""%>
+						class="btn btn-outline-secondary">
+
+				</div>
+
+
+				<!-- Delete -->
+
+				<div class="col-md-4 text-center">
+
+					<input type="submit" name="operation"
+						value="<%=BaseCtl.OP_DELETE%>" class="btn btn-danger">
+
+				</div>
+
+
+				<!-- Next -->
+
+				<div class="col-md-4 text-end">
+
+					<input type="submit" name="operation" value="<%=BaseCtl.OP_NEXT%>"
+						<%=list.size() < 10 ? "disabled" : ""%>
+						class="btn btn-outline-secondary">
+
+				</div>
+
+
+			</div>
+
 
 		</div>
-
-
-		<!-- Pagination -->
-
-		<table width="100%">
-
-			<tr>
-
-				<td><input type="submit" name="operation"
-					<%=pageNo == 1 ? "disabled" : ""%>
-					value="<%=BaseCtl.OP_PREVIOUS%>"></td>
-
-
-				<td align="center"><input type="submit" name="operation"
-					value="<%=BaseCtl.OP_DELETE%>"></td>
-
-
-				<td align="right"><input type="submit" name="operation"
-					<%=list.size() < 10 ? "disabled" : ""%>
-					value="<%=BaseCtl.OP_NEXT%>"></td>
-
-			</tr>
-
-		</table>
 
 
 	</form>

@@ -2,14 +2,23 @@
 <%@page import="in.co.rays.proj4.util.ServletUtility"%>
 <%@page import="in.co.rays.proj4.controller.BaseCtl"%>
 <%@page import="in.co.rays.proj4.controller.ORSView"%>
+
 <!DOCTYPE html>
+
 <html>
+
 <head>
+
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>
+
+<title>Login</title>
+
 </head>
+
 <body>
-	<%@ include file="Header.jsp"%>
+
+	<%@include file="Header.jsp"%>
+
 	<%
 	String _suc = ServletUtility.getSuccessMessage(request);
 	String _err = ServletUtility.getErrorMessage(request);
@@ -17,40 +26,89 @@
 
 	<form action="<%=ORSView.LOGIN_CTL%>" method="post">
 
-		<div align="center">
+		<div class="container">
 
-			<h1>Login</h1>
+			<div class="row justify-content-center mt-5">
 
-			<h3 style="color: green"><%=_suc%></h3>
-			<h3 style="color: red"><%=_err%></h3>
+				<div class="col-md-5">
 
-			<table>
+					<div class="card">
 
-				<tr>
-					<th>Login<font color="red">*</font></th>
-					<td><input type="text" name="login" value=""
-						placeholder="enter your login"></td>
-					<td style="color: red"><%=ServletUtility.getErrorMessage("login", request)%></td>
-				</tr>
+						<div class="card-header text-center">
+							<h3>Login</h3>
+						</div>
 
-				<tr>
-					<th>Password<font color="red">*</font></th>
-					<td><input type="password" name="password" value=""
-						placeholder="enter your password"></td>
-					<td style="color: red"><%=ServletUtility.getErrorMessage("password", request)%></td>
-				</tr>
+						<div class="card-body">
 
-				<tr>
-					<th></th>
-					<td><input type="submit" name="operation"
-						value="<%=LoginCtl.OP_SIGN_IN%>"></td>
-				</tr>
+							<h5 class="text-success text-center"><%=_suc%></h5>
 
-			</table>
+							<h5 class="text-danger text-center"><%=_err%></h5>
+
+
+							<!-- Login -->
+							<div class="mb-3">
+
+								<label class="form-label">
+									Login <font color="red">*</font>
+								</label>
+
+								<input type="text"
+									name="login"
+									value=""
+									placeholder="Enter your login"
+									class="form-control">
+
+								<div class="text-danger">
+									<%=ServletUtility.getErrorMessage("login", request)%>
+								</div>
+
+							</div>
+
+
+							<!-- Password -->
+							<div class="mb-3">
+
+								<label class="form-label">
+									Password <font color="red">*</font>
+								</label>
+
+								<input type="password"
+									name="password"
+									value=""
+									placeholder="Enter your password"
+									class="form-control">
+
+								<div class="text-danger">
+									<%=ServletUtility.getErrorMessage("password", request)%>
+								</div>
+
+							</div>
+
+
+							<!-- Sign In Button -->
+							<div class="text-center">
+
+								<input type="submit"
+									name="operation"
+									value="<%=LoginCtl.OP_SIGN_IN%>"
+									class="btn btn-primary">
+
+							</div>
+
+						</div>
+
+					</div>
+
+				</div>
+
+			</div>
 
 		</div>
 
 	</form>
-	<%@ include file="Footer.jsp"%>
+
+	<%@include file="Footer.jsp"%>
+
 </body>
+
 </html>

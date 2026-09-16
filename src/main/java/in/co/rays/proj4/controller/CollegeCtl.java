@@ -7,7 +7,7 @@ import in.co.rays.proj4.util.DataValidator;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServletRequest;
 
-@WebServlet("/CollegeCtl")
+@WebServlet("/ctl/CollegeCtl")
 public class CollegeCtl extends BaseCtl<CollegeBean, CollegeModel> {
 
 	@Override

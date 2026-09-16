@@ -3,104 +3,286 @@
 <%@page import="in.co.rays.proj4.util.ServletUtility"%>
 <%@page import="in.co.rays.proj4.controller.BaseCtl"%>
 <%@page import="in.co.rays.proj4.controller.ORSView"%>
+
 <!DOCTYPE html>
+
 <html>
+
 <head>
+
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>
+
+<title>Add User</title>
+
 </head>
+
 <body>
+
 	<%@ include file="Header.jsp"%>
+
+
 	<%
 	String _suc = ServletUtility.getSuccessMessage(request);
+
 	String _err = ServletUtility.getErrorMessage(request);
 	%>
 
+
 	<form action="<%=ORSView.USER_CTL%>" method="post">
 
-		<div align="center">
 
-			<h1>Add User</h1>
+		<div class="container">
 
-			<h3 style="color: green"><%=_suc%></h3>
-			<h3 style="color: red"><%=_err%></h3>
+			<div class="row justify-content-center mt-4">
 
-			<table>
+				<div class="col-md-6">
 
-				<tr>
-					<th>FirstName<font color="red">*</font></th>
-					<td><input type="text" name="firstName" value=""
-						placeholder="enter your firstName"></td>
-					<td style="color: red"><%=ServletUtility.getErrorMessage("firstName", request)%></td>
-				</tr>
+					<div class="card shadow">
 
-				<tr>
-					<th>LastName<font color="red">*</font></th>
-					<td><input type="text" name="lastName" value=""
-						placeholder="enter your lastName"></td>
-					<td style="color: red"><%=ServletUtility.getErrorMessage("lastName", request)%></td>
-				</tr>
 
-				<tr>
-					<th>Login<font color="red">*</font></th>
-					<td><input type="text" name="login" value=""
-						placeholder="enter an emial"></td>
-					<td style="color: red"><%=ServletUtility.getErrorMessage("login", request)%></td>
-				</tr>
+						<!-- Header -->
 
-				<tr>
-					<th>Password<font color="red">*</font></th>
-					<td><input type="password" name="password" value=""
-						placeholder="enter an password"></td>
-					<td style="color: red"><%=ServletUtility.getErrorMessage("password", request)%></td>
-				</tr>
+						<div class="card-header text-center">
 
-				<tr>
-					<th>ConfirmPassword<font color="red">*</font></th>
-					<td><input type="password" name="confirmPassword" value=""
-						placeholder="re-enter your password"></td>
-					<td style="color: red"><%=ServletUtility.getErrorMessage("confirmPassword", request)%></td>
-				</tr>
+							<h2>Add User</h2>
 
-				<tr>
-					<th>Role<font color="red">*</font></th>
-					<td><select class='form-control' name='roleId'>
-							<option selected value=''>-------------Select------------</option>
-							<option value='1'>Admin</option>
-							<option value='2'>Student</option>
-							<option value='3'>College</option>
-							<option value='4'>KIOSK</option>
-					</select></td>
-					<td style="color: red"><%=ServletUtility.getErrorMessage("roleId", request)%></td>
-				</tr>
+						</div>
 
-				<tr>
-					<th>Gender<font color="red">*</font></th>
-					<td><select class='form-control' name='gender'>
-							<option selected value=''>-------------Select------------</option>
-							<option value='female'>female</option>
-							<option value='male'>male</option>
-					</select></td>
-					<td style="color: red"><%=ServletUtility.getErrorMessage("gender", request)%></td>
-				</tr>
 
-				<tr>
-					<th>DOB<font color="red">*</font></th>
-					<td><input type="date" name="dob" value=""></td>
-					<td style="color: red"><%=ServletUtility.getErrorMessage("dob", request)%></td>
-				</tr>
+						<div class="card-body">
 
-				<tr>
-					<th></th>
-					<td><input type="submit" name="operation"
-						value="<%=UserRegistrationCtl.OP_SIGN_UP%>"></td>
-				</tr>
 
-			</table>
+							<!-- Success -->
+
+							<h5 class="text-success text-center">
+
+								<%=_suc%>
+
+							</h5>
+
+
+							<!-- Error -->
+
+							<h5 class="text-danger text-center">
+
+								<%=_err%>
+
+							</h5>
+
+
+							<!-- First Name -->
+
+							<div class="mb-3">
+
+								<label class="form-label"> First Name <span
+									class="text-danger">*</span>
+
+								</label> <input type="text" name="firstName" value=""
+									placeholder="Enter your firstName" class="form-control">
+
+
+								<div class="text-danger">
+
+									<%=ServletUtility.getErrorMessage("firstName", request)%>
+
+								</div>
+
+							</div>
+
+
+							<!-- Last Name -->
+
+							<div class="mb-3">
+
+								<label class="form-label"> Last Name <span
+									class="text-danger">*</span>
+
+								</label> <input type="text" name="lastName" value=""
+									placeholder="Enter your lastName" class="form-control">
+
+
+								<div class="text-danger">
+
+									<%=ServletUtility.getErrorMessage("lastName", request)%>
+
+								</div>
+
+							</div>
+
+
+							<!-- Login -->
+
+							<div class="mb-3">
+
+								<label class="form-label"> Login <span
+									class="text-danger">*</span>
+
+								</label> <input type="text" name="login" value=""
+									placeholder="Enter an email" class="form-control">
+
+
+								<div class="text-danger">
+
+									<%=ServletUtility.getErrorMessage("login", request)%>
+
+								</div>
+
+							</div>
+
+
+							<!-- Password -->
+
+							<div class="mb-3">
+
+								<label class="form-label"> Password <span
+									class="text-danger">*</span>
+
+								</label> <input type="password" name="password" value=""
+									placeholder="Enter your password" class="form-control">
+
+
+								<div class="text-danger">
+
+									<%=ServletUtility.getErrorMessage("password", request)%>
+
+								</div>
+
+							</div>
+
+
+							<!-- Confirm Password -->
+
+							<div class="mb-3">
+
+								<label class="form-label"> Confirm Password <span
+									class="text-danger">*</span>
+
+								</label> <input type="password" name="confirmPassword" value=""
+									placeholder="Re-enter your password" class="form-control">
+
+
+								<div class="text-danger">
+
+									<%=ServletUtility.getErrorMessage("confirmPassword", request)%>
+
+								</div>
+
+							</div>
+
+
+							<!-- Role -->
+
+							<div class="mb-3">
+
+								<label class="form-label"> Role <span
+									class="text-danger">*</span>
+
+								</label> <select class="form-select" name="roleId">
+
+
+									<option selected value="">Select</option>
+
+
+									<option value="1">Admin</option>
+
+
+									<option value="2">Student</option>
+
+
+									<option value="3">College</option>
+
+
+									<option value="4">KIOSK</option>
+
+
+								</select>
+
+
+								<div class="text-danger">
+
+									<%=ServletUtility.getErrorMessage("roleId", request)%>
+
+								</div>
+
+							</div>
+
+
+							<!-- Gender -->
+
+							<div class="mb-3">
+
+								<label class="form-label"> Gender <span
+									class="text-danger">*</span>
+
+								</label> <select class="form-select" name="gender">
+
+
+									<option selected value="">Select</option>
+
+
+									<option value="female">female</option>
+
+
+									<option value="male">male</option>
+
+
+								</select>
+
+
+								<div class="text-danger">
+
+									<%=ServletUtility.getErrorMessage("gender", request)%>
+
+								</div>
+
+							</div>
+
+
+							<!-- DOB -->
+
+							<div class="mb-3">
+
+								<label class="form-label"> DOB <span class="text-danger">*</span>
+
+								</label> <input type="date" name="dob" value="" class="form-control">
+
+
+								<div class="text-danger">
+
+									<%=ServletUtility.getErrorMessage("dob", request)%>
+
+								</div>
+
+							</div>
+
+
+							<!-- Sign Up -->
+
+							<div class="text-center">
+
+								<input type="submit" name="operation"
+									value="<%=UserRegistrationCtl.OP_SIGN_UP%>"
+									class="btn btn-primary">
+
+							</div>
+
+
+						</div>
+
+					</div>
+
+				</div>
+
+			</div>
 
 		</div>
 
+
 	</form>
+
+
 	<%@ include file="Footer.jsp"%>
+
 </body>
+
 </html>

@@ -1,169 +1,232 @@
 <%@page import="in.co.rays.proj4.util.ServletUtility"%>
 <%@page import="in.co.rays.proj4.controller.BaseCtl"%>
-<%@page import="in.co.rays.proj4.bean.CollegeBean"%>
 <%@page import="in.co.rays.proj4.controller.ORSView"%>
-<%@page import="java.util.Iterator"%>
+<%@page import="in.co.rays.proj4.bean.CollegeBean"%>
 <%@page import="java.util.List"%>
+<%@page import="java.util.Iterator"%>
 
 <!DOCTYPE html>
+
 <html>
+
 <head>
+
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>
+
+<title>College List</title>
+
 </head>
 
 <body>
 
 	<%@ include file="Header.jsp"%>
 
+
 	<%
-		int pageNo = ServletUtility.getPageNo(request);
-		int pageSize = ServletUtility.getPageSize(request);
-		int index = ((pageNo - 1) * pageSize) + 1;
+	int pageNo = ServletUtility.getPageNo(request);
+	int pageSize = ServletUtility.getPageSize(request);
+	int index = (pageNo - 1) * pageSize + 1;
 
-		List<CollegeBean> list = ServletUtility.getList(request);
-		Iterator<CollegeBean> it = list.iterator();
+	List<CollegeBean> list = ServletUtility.getList(request);
+	Iterator<CollegeBean> it = list.iterator();
 
-		String _suc = ServletUtility.getSuccessMessage(request);
-		String _err = ServletUtility.getErrorMessage(request);
+	String _suc = ServletUtility.getSuccessMessage(request);
+	String _err = ServletUtility.getErrorMessage(request);
 	%>
+
 
 	<form action="<%=ORSView.COLLEGE_LIST_CTL%>" method="post">
 
-		<div align="center">
 
-			<h1>College List</h1>
+		<div class="container-fluid">
 
-			<h3 style="color: green"><%= _suc != null ? _suc : "" %></h3>
-			<h3 style="color: red"><%= _err != null ? _err : "" %></h3>
+			<!-- Page Heading -->
 
-			<input type="hidden" name="pageNo" value="<%=pageNo%>">
-			<input type="hidden" name="pageSize" value="<%=pageSize%>">
+			<div class="text-center mt-4 mb-3">
 
-			<table>
+				<h1>College List</h1>
 
-				<tr>
-
-					<td>
-						<input type="text" name="name" value=""
-							placeholder="search by college">
-					</td>
-
-					<td>
-						<input type="text" name="address" value=""
-							placeholder="search by address">
-					</td>
-
-					<td>
-						<input type="text" name="state" value=""
-							placeholder="search by state">
-					</td>
-
-					<td>
-						<input type="text" name="city" value=""
-							placeholder="search by city">
-					</td>
-
-					<td>
-						<input type="text" name="phone" value=""
-							placeholder="search by phone">
-					</td>
-
-					<td>
-						<input type="submit" name="operation"
-							value="<%=BaseCtl.OP_SEARCH%>">
-					</td>
-
-				</tr>
-
-			</table>
+			</div>
 
 
-			<table border="1px" width="100%">
+			<!-- Success / Error Message -->
 
-				<tr style="background-color: skyblue">
+			<h5 class="text-success text-center">
+				<%=_suc != null ? _suc : ""%>
+			</h5>
 
-					<th>
-						<input type="checkbox"
-							onclick="document.querySelectorAll('input[name=ids]').forEach(c=>c.checked=this.checked)">
-					</th>
-
-					<th>S.No</th>
-					<th>Name</th>
-					<th>Address</th>
-					<th>State</th>
-					<th>City</th>
-					<th>Phone</th>
-
-				</tr>
+			<h5 class="text-danger text-center">
+				<%=_err != null ? _err : ""%>
+			</h5>
 
 
-				<%
-					while (it.hasNext()) {
+			<!-- Search -->
 
-						CollegeBean bean = it.next();
-				%>
+			<div class="row justify-content-center mb-3">
 
-				<tr align="center" style="background-color: lightgrey">
+				<div class="col-md-2">
 
-					<td>
-						<input type="checkbox" name="ids"
-							value="<%=bean.getId()%>">
-					</td>
+					<input type="text" name="name" value=""
+						placeholder="Search by college" class="form-control">
 
-					<td><%=index++%></td>
+				</div>
 
-					<td><%=bean.getName()%></td>
 
-					<td><%=bean.getAddress()%></td>
+				<div class="col-md-2">
 
-					<td><%=bean.getState()%></td>
+					<input type="text" name="address" value=""
+						placeholder="Search by address" class="form-control">
 
-					<td><%=bean.getCity()%></td>
+				</div>
 
-					<td><%=bean.getPhoneNo()%></td>
 
-				</tr>
+				<div class="col-md-2">
 
-				<%
-					}
-				%>
+					<input type="text" name="state" value=""
+						placeholder="Search by state" class="form-control">
 
-			</table>
+				</div>
+
+
+				<div class="col-md-2">
+
+					<input type="text" name="city" value=""
+						placeholder="Search by city" class="form-control">
+
+				</div>
+
+
+				<div class="col-md-1">
+
+					<input type="text" name="phone" value=""
+						placeholder="Search by phone" class="form-control">
+
+				</div>
+
+
+				<div class="col-md-1">
+
+					<input type="submit" name="operation"
+						value="<%=BaseCtl.OP_SEARCH%>" class="btn btn-primary">
+
+				</div>
+
+			</div>
+
+
+			<!-- College Table -->
+
+			<div class="table-responsive">
+
+				<table class="table table-bordered table-hover align-middle">
+
+					<thead class="table-info">
+
+						<tr>
+
+							<th><input type="checkbox"
+								onclick="document.querySelectorAll('input[name=ids]').forEach(e=>e.checked=this.checked)">
+							</th>
+
+							<th>S.No</th>
+
+							<th>Name</th>
+
+							<th>Address</th>
+
+							<th>State</th>
+
+							<th>City</th>
+
+							<th>Phone</th>
+
+						</tr>
+
+					</thead>
+
+
+					<tbody>
+
+						<%
+						while (it.hasNext()) {
+
+							CollegeBean bean = it.next();
+						%>
+
+						<tr>
+
+							<td><input type="checkbox" name="ids"
+								value="<%=bean.getId()%>"></td>
+
+							<td><%=index++%></td>
+
+							<td><%=bean.getName()%></td>
+
+							<td><%=bean.getAddress()%></td>
+
+							<td><%=bean.getState()%></td>
+
+							<td><%=bean.getCity()%></td>
+
+							<td><%=bean.getPhoneNo()%></td>
+
+						</tr>
+
+						<%
+						}
+						%>
+
+					</tbody>
+
+				</table>
+
+			</div>
+
+
+			<!-- Pagination / Delete -->
+
+			<div class="row mt-3">
+
+				<div class="col-md-4">
+
+					<input type="submit" name="operation"
+						value="<%=BaseCtl.OP_PREVIOUS%>"
+						<%=pageNo == 1 ? "disabled" : ""%>
+						class="btn btn-outline-secondary">
+
+				</div>
+
+
+				<div class="col-md-4 text-center">
+
+					<input type="submit" name="operation"
+						value="<%=BaseCtl.OP_DELETE%>" class="btn btn-danger">
+
+				</div>
+
+
+				<div class="col-md-4 text-end">
+
+					<input type="submit" name="operation" value="<%=BaseCtl.OP_NEXT%>"
+						<%=list.size() < pageSize ? "disabled" : ""%>
+						class="btn btn-outline-secondary">
+
+				</div>
+
+			</div>
+
+
+			<input type="hidden" name="pageNo" value="<%=pageNo%>"> <input
+				type="hidden" name="pageSize" value="<%=pageSize%>">
+
 
 		</div>
 
-
-		<table width="100%">
-
-			<tr>
-
-				<td>
-					<input type="submit" name="operation"
-						<%=pageNo == 1 ? "disabled" : ""%>
-						value="<%=BaseCtl.OP_PREVIOUS%>">
-				</td>
-
-
-				<td align="center">
-					<input type="submit" name="operation"
-						value="<%=BaseCtl.OP_DELETE%>">
-				</td>
-
-
-				<td align="right">
-					<input type="submit" name="operation"
-						<%=list.size() < 10 ? "disabled" : ""%>
-						value="<%=BaseCtl.OP_NEXT%>">
-				</td>
-
-			</tr>
-
-		</table>
-
 	</form>
+
 
 	<%@ include file="Footer.jsp"%>
 
 </body>
+
 </html>

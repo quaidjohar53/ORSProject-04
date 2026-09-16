@@ -1,118 +1,163 @@
 <%@page import="in.co.rays.proj4.util.ServletUtility"%>
 <%@page import="in.co.rays.proj4.controller.BaseCtl"%>
 <%@page import="in.co.rays.proj4.controller.ORSView"%>
+
 <!DOCTYPE html>
+
 <html>
+
 <head>
+
 <meta charset="ISO-8859-1">
+
 <title>Insert title here</title>
+
 </head>
+
 <body>
 
 	<%@ include file="Header.jsp"%>
 
 	<%
-		String _suc = ServletUtility.getSuccessMessage(request);
-		String _err = ServletUtility.getErrorMessage(request);
+	String _suc = ServletUtility.getSuccessMessage(request);
+	String _err = ServletUtility.getErrorMessage(request);
 	%>
+
 
 	<form action="<%=ORSView.COLLEGE_CTL%>" method="post">
 
-		<div align="center">
+		<div class="container">
 
-			<h1>Add College</h1>
+			<div class="row justify-content-center mt-4">
 
-			<h3 style="color: green"><%=_suc%></h3>
-			<h3 style="color: red"><%=_err%></h3>
+				<div class="col-md-6">
 
-			<table>
+					<div class="card shadow">
 
-				<tr>
-					<th>Name<font color="red">*</font></th>
+						<div class="card-header text-center">
 
-					<td>
-						<input type="text" name="name" value=""
-							placeholder="enter college name">
-					</td>
+							<h2>Add College</h2>
 
-					<td style="color: red">
-						<%=ServletUtility.getErrorMessage("name", request)%>
-					</td>
-				</tr>
+						</div>
 
 
-				<tr>
-					<th>Address<font color="red">*</font></th>
-
-					<td>
-						<input type="text" name="address" value=""
-							placeholder="enter college address">
-					</td>
-
-					<td style="color: red">
-						<%=ServletUtility.getErrorMessage("address", request)%>
-					</td>
-				</tr>
+						<div class="card-body">
 
 
-				<tr>
-					<th>State<font color="red">*</font></th>
+							<h5 class="text-success text-center">
+								<%=_suc%>
+							</h5>
 
-					<td>
-						<input type="text" name="state" value=""
-							placeholder="enter state">
-					</td>
-
-					<td style="color: red">
-						<%=ServletUtility.getErrorMessage("state", request)%>
-					</td>
-				</tr>
+							<h5 class="text-danger text-center">
+								<%=_err%>
+							</h5>
 
 
-				<tr>
-					<th>City<font color="red">*</font></th>
+							<!-- Name -->
 
-					<td>
-						<input type="text" name="city" value=""
-							placeholder="enter city">
-					</td>
+							<div class="mb-3">
 
-					<td style="color: red">
-						<%=ServletUtility.getErrorMessage("city", request)%>
-					</td>
-				</tr>
+								<label class="form-label"> Name <span
+									class="text-danger">*</span>
+								</label> <input type="text" name="name" value=""
+									placeholder="Enter college name" class="form-control">
 
+								<div class="text-danger">
+									<%=ServletUtility.getErrorMessage("name", request)%>
+								</div>
 
-				<tr>
-					<th>Phone<font color="red">*</font></th>
-
-					<td>
-						<input type="text" name="phone" value=""
-							placeholder="enter phone number">
-					</td>
-
-					<td style="color: red">
-						<%=ServletUtility.getErrorMessage("phone", request)%>
-					</td>
-				</tr>
+							</div>
 
 
-				<tr>
-					<th></th>
+							<!-- Address -->
 
-					<td>
-						<input type="submit" name="operation"
-							value="<%=BaseCtl.OP_SAVE%>">
-					</td>
-				</tr>
+							<div class="mb-3">
 
-			</table>
+								<label class="form-label"> Address <span
+									class="text-danger">*</span>
+								</label> <input type="text" name="address" value=""
+									placeholder="Enter college address" class="form-control">
+
+								<div class="text-danger">
+									<%=ServletUtility.getErrorMessage("address", request)%>
+								</div>
+
+							</div>
+
+
+							<!-- State -->
+
+							<div class="mb-3">
+
+								<label class="form-label"> State <span
+									class="text-danger">*</span>
+								</label> <input type="text" name="state" value=""
+									placeholder="Enter state" class="form-control">
+
+								<div class="text-danger">
+									<%=ServletUtility.getErrorMessage("state", request)%>
+								</div>
+
+							</div>
+
+
+							<!-- City -->
+
+							<div class="mb-3">
+
+								<label class="form-label"> City <span
+									class="text-danger">*</span>
+								</label> <input type="text" name="city" value=""
+									placeholder="Enter city" class="form-control">
+
+								<div class="text-danger">
+									<%=ServletUtility.getErrorMessage("city", request)%>
+								</div>
+
+							</div>
+
+
+							<!-- Phone -->
+
+							<div class="mb-3">
+
+								<label class="form-label"> Phone <span
+									class="text-danger">*</span>
+								</label> <input type="text" name="phone" value=""
+									placeholder="Enter phone number" class="form-control">
+
+								<div class="text-danger">
+									<%=ServletUtility.getErrorMessage("phone", request)%>
+								</div>
+
+							</div>
+
+
+							<!-- Save -->
+
+							<div class="text-center">
+
+								<input type="submit" name="operation"
+									value="<%=BaseCtl.OP_SAVE%>" class="btn btn-primary">
+
+							</div>
+
+
+						</div>
+
+					</div>
+
+				</div>
+
+			</div>
 
 		</div>
 
 	</form>
 
+
 	<%@ include file="Footer.jsp"%>
 
 </body>
+
 </html>

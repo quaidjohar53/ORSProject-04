@@ -6,6 +6,7 @@
 <%@page import="java.util.List"%>
 
 <!DOCTYPE html>
+
 <html>
 
 <head>
@@ -22,196 +23,210 @@
 
 	<%
 	String _suc = ServletUtility.getSuccessMessage(request);
-
 	String _err = ServletUtility.getErrorMessage(request);
 
 	FacultyBean bean = (FacultyBean) request.getAttribute("bean");
 
-	List<CollegeBean> collegeList = (List<CollegeBean>) request.getAttribute("collegeList");
+	List<CollegeBean> collegeList = ServletUtility.getList(request);
 	%>
 
 
 	<form action="<%=ORSView.FACULTY_CTL%>" method="post">
 
+		<div class="container">
 
-		<div align="center">
+			<div class="row justify-content-center mt-4">
 
-			<h1>Add Faculty</h1>
+				<div class="col-md-6">
 
+					<div class="card shadow">
 
-			<h3 style="color: green">
-				<%=_suc%>
-			</h3>
+						<div class="card-header text-center">
 
-			<h3 style="color: red">
-				<%=_err%>
-			</h3>
+							<h2>Add Faculty</h2>
 
+						</div>
 
-			<table>
 
+						<div class="card-body">
 
-				<!-- First Name -->
 
-				<tr>
+							<h5 class="text-success text-center">
+								<%=_suc%>
+							</h5>
 
-					<th>First Name<font color="red">*</font>
-					</th>
 
-					<td><input type="text" name="firstName"
-						value="<%=bean != null ? bean.getFirstName() : ""%>"
-						placeholder="enter first name"></td>
+							<h5 class="text-danger text-center">
+								<%=_err%>
+							</h5>
 
-					<td style="color: red"><%=ServletUtility.getErrorMessage("firstName", request)%></td>
 
-				</tr>
+							<!-- First Name -->
 
+							<div class="mb-3">
 
-				<!-- Last Name -->
+								<label class="form-label"> First Name <span
+									class="text-danger">*</span>
 
-				<tr>
+								</label> <input type="text" name="firstName"
+									value="<%=bean != null ? bean.getFirstName() : ""%>"
+									placeholder="Enter first name" class="form-control">
 
-					<th>Last Name<font color="red">*</font>
-					</th>
+								<div class="text-danger">
 
-					<td><input type="text" name="lastName"
-						value="<%=bean != null ? bean.getLastName() : ""%>"
-						placeholder="enter last name"></td>
+									<%=ServletUtility.getErrorMessage("firstName", request)%>
 
-					<td style="color: red"><%=ServletUtility.getErrorMessage("lastName", request)%></td>
+								</div>
 
-				</tr>
+							</div>
 
 
-				<!-- Date of Birth -->
+							<!-- Last Name -->
 
-				<!-- Date Of Birth -->
+							<div class="mb-3">
 
-				<tr>
+								<label class="form-label"> Last Name <span
+									class="text-danger">*</span>
 
-					<th>Date Of Birth<font color="red">*</font>
-					</th>
+								</label> <input type="text" name="lastName"
+									value="<%=bean != null ? bean.getLastName() : ""%>"
+									placeholder="Enter last name" class="form-control">
 
-					<td><input type="text" name="dob"
-						value="<%=bean != null && bean.getDob() != null ? bean.getDob() : ""%>"
-						placeholder="dd/MM/yyyy"></td>
+								<div class="text-danger">
 
-					<td style="color: red"><%=ServletUtility.getErrorMessage("dob", request)%></td>
+									<%=ServletUtility.getErrorMessage("lastName", request)%>
 
-				</tr>
+								</div>
 
-				<th>Mobile No<font color="red">*</font>
-				</th>
+							</div>
 
-				<td><input type="text" name="mobileNo"
-					value="<%=bean != null ? bean.getMobileNo() : ""%>"
-					placeholder="enter mobile number"></td>
 
-				<td style="color: red"><%=ServletUtility.getErrorMessage("mobileNo", request)%></td>
+							<!-- Email -->
 
-				</tr>
+							<div class="mb-3">
 
+								<label class="form-label"> Email <span
+									class="text-danger">*</span>
 
-				<!-- Email -->
+								</label> <input type="text" name="email"
+									value="<%=bean != null ? bean.getEmail() : ""%>"
+									placeholder="Enter email" class="form-control">
 
-				<tr>
+								<div class="text-danger">
 
-					<th>Email<font color="red">*</font>
-					</th>
+									<%=ServletUtility.getErrorMessage("email", request)%>
 
-					<td><input type="text" name="email"
-						value="<%=bean != null ? bean.getEmail() : ""%>"
-						placeholder="enter email"></td>
+								</div>
 
-					<td style="color: red"><%=ServletUtility.getErrorMessage("email", request)%></td>
+							</div>
 
-				</tr>
 
+							<!-- Gender -->
 
-				<!-- Address -->
+							<div class="mb-3">
 
-				<tr>
+								<label class="form-label"> Gender <span
+									class="text-danger">*</span>
 
-					<th>Address</th>
+								</label> <select name="gender" class="form-select">
 
-					<td><input type="text" name="address"
-						value="<%=bean != null ? bean.getAddress() : ""%>"
-						placeholder="enter address"></td>
+									<option value="">Select Gender</option>
 
-					<td></td>
+									<option value="Male"
+										<%=bean != null && "Male".equals(bean.getGender()) ? "selected" : ""%>>
+										Male</option>
 
-				</tr>
+									<option value="Female"
+										<%=bean != null && "Female".equals(bean.getGender()) ? "selected" : ""%>>
+										Female</option>
 
+								</select>
 
-				<!-- Gender -->
 
-				<tr>
+								<div class="text-danger">
 
-					<th>Gender</th>
+									<%=ServletUtility.getErrorMessage("gender", request)%>
 
-					<td><select name="gender">
+								</div>
 
-							<option value="">Select Gender</option>
+							</div>
 
-							<option value="Male">Male</option>
 
-							<option value="Female">Female</option>
+							<!-- College -->
 
-					</select></td>
+							<div class="mb-3">
 
-					<td></td>
+								<label class="form-label"> College <span
+									class="text-danger">*</span>
 
-				</tr>
+								</label> <select name="collegeId" class="form-select">
 
+									<option value="">Select College</option>
 
-				<!-- COLLEGE DROPDOWN -->
+									<%
+									if (collegeList != null) {
 
-				<tr>
+										for (CollegeBean college : collegeList) {
+									%>
 
-					<th>College<font color="red">*</font>
-					</th>
+									<option value="<%=college.getId()%>">
+										<%=college.getName()%>
+									</option>
 
-					<td><select name="collegeId">
+									<%
+									}
+									}
+									%>
 
-							<option value="">Select College</option>
+								</select>
 
-							<%
-							if (collegeList != null) {
 
-								for (CollegeBean college : collegeList) {
-							%>
+								<div class="text-danger">
 
-							<option value="<%=college.getId()%>">
+									<%=ServletUtility.getErrorMessage("collegeId", request)%>
 
-								<%=college.getName()%>
+								</div>
 
-							</option>
+							</div>
 
-							<%
-							}
-							}
-							%>
 
-					</select></td>
+							<!-- Date of Birth -->
 
-					<td style="color: red"><%=ServletUtility.getErrorMessage("collegeId", request)%></td>
+							<div class="mb-3">
 
-				</tr>
+								<label class="form-label"> Date of Birth <span
+									class="text-danger">*</span>
 
+								</label> <input type="text" name="dob"
+									value="<%=bean != null ? bean.getDob() : ""%>"
+									placeholder="Enter date of birth" class="form-control">
 
-				<!-- Save -->
+								<div class="text-danger">
 
-				<tr>
+									<%=ServletUtility.getErrorMessage("dob", request)%>
 
-					<th></th>
+								</div>
 
-					<td><input type="submit" name="operation"
-						value="<%=BaseCtl.OP_SAVE%>"></td>
+							</div>
 
-				</tr>
 
+							<!-- Save -->
 
-			</table>
+							<div class="text-center">
+
+								<input type="submit" name="operation"
+									value="<%=BaseCtl.OP_SAVE%>" class="btn btn-primary">
+
+							</div>
+
+
+						</div>
+
+					</div>
+
+				</div>
+
+			</div>
 
 		</div>
 

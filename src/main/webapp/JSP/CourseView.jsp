@@ -4,6 +4,7 @@
 <%@page import="in.co.rays.proj4.bean.CourseBean"%>
 
 <!DOCTYPE html>
+
 <html>
 
 <head>
@@ -19,130 +20,130 @@
 	<%@ include file="Header.jsp"%>
 
 	<%
-		String _suc =
-				ServletUtility.getSuccessMessage(request);
+	String _suc = ServletUtility.getSuccessMessage(request);
+	String _err = ServletUtility.getErrorMessage(request);
 
-		String _err =
-				ServletUtility.getErrorMessage(request);
-
-		CourseBean bean =
-				(CourseBean) request.getAttribute("bean");
+	CourseBean bean = (CourseBean) request.getAttribute("bean");
 	%>
 
 
 	<form action="<%=ORSView.COURSE_CTL%>" method="post">
 
-		<div align="center">
+		<div class="container">
 
-			<h1>Add Course</h1>
+			<div class="row justify-content-center mt-4">
 
-			<h3 style="color: green"><%=_suc%></h3>
+				<div class="col-md-6">
 
-			<h3 style="color: red"><%=_err%></h3>
+					<div class="card shadow">
 
+						<div class="card-header text-center">
 
-			<table>
+							<h2>Add Course</h2>
 
-
-				<!-- Name -->
-
-				<tr>
-
-					<th>
-						Name<font color="red">*</font>
-					</th>
-
-					<td>
-
-						<input type="text"
-							name="name"
-							value="<%=bean != null ? bean.getName() : ""%>"
-							placeholder="enter course name">
-
-					</td>
-
-					<td style="color: red">
-
-						<%=ServletUtility.getErrorMessage(
-								"name", request)%>
-
-					</td>
-
-				</tr>
+						</div>
 
 
-				<!-- Duration -->
-
-				<tr>
-
-					<th>
-						Duration<font color="red">*</font>
-					</th>
-
-					<td>
-
-						<input type="text"
-							name="duration"
-							value="<%=bean != null ? bean.getDuration() : ""%>"
-							placeholder="enter duration">
-
-					</td>
-
-					<td style="color: red">
-
-						<%=ServletUtility.getErrorMessage(
-								"duration", request)%>
-
-					</td>
-
-				</tr>
+						<div class="card-body">
 
 
-				<!-- Description -->
+							<!-- Success Message -->
 
-				<tr>
-
-					<th>
-						Description<font color="red">*</font>
-					</th>
-
-					<td>
-
-						<input type="text"
-							name="description"
-							value="<%=bean != null ? bean.getDescription() : ""%>"
-							placeholder="enter course description">
-
-					</td>
-
-					<td style="color: red">
-
-						<%=ServletUtility.getErrorMessage(
-								"description", request)%>
-
-					</td>
-
-				</tr>
+							<h5 class="text-success text-center">
+								<%=_suc%>
+							</h5>
 
 
-				<!-- Save -->
+							<!-- Error Message -->
 
-				<tr>
-
-					<th></th>
-
-					<td>
-
-						<input type="submit"
-							name="operation"
-							value="<%=BaseCtl.OP_SAVE%>">
-
-					</td>
-
-				</tr>
+							<h5 class="text-danger text-center">
+								<%=_err%>
+							</h5>
 
 
-			</table>
+							<!-- Name -->
+
+							<div class="mb-3">
+
+								<label class="form-label"> Name <span
+									class="text-danger">*</span>
+
+								</label> <input type="text" name="name"
+									value="<%=bean != null ? bean.getName() : ""%>"
+									placeholder="Enter course name" class="form-control">
+
+
+								<div class="text-danger">
+
+									<%=ServletUtility.getErrorMessage("name", request)%>
+
+								</div>
+
+							</div>
+
+
+							<!-- Duration -->
+
+							<div class="mb-3">
+
+								<label class="form-label"> Duration <span
+									class="text-danger">*</span>
+
+								</label> <input type="text" name="duration"
+									value="<%=bean != null ? bean.getDuration() : ""%>"
+									placeholder="Enter duration" class="form-control">
+
+
+								<div class="text-danger">
+
+									<%=ServletUtility.getErrorMessage("duration", request)%>
+
+								</div>
+
+							</div>
+
+
+							<!-- Description -->
+
+							<div class="mb-3">
+
+								<label class="form-label"> Description <span
+									class="text-danger">*</span>
+
+								</label>
+
+
+								<textarea name="description"
+									placeholder="Enter course description" class="form-control"
+									rows="4"><%=bean != null ? bean.getDescription() : ""%></textarea>
+
+
+								<div class="text-danger">
+
+									<%=ServletUtility.getErrorMessage("description", request)%>
+
+								</div>
+
+							</div>
+
+
+							<!-- Save -->
+
+							<div class="text-center">
+
+								<input type="submit" name="operation"
+									value="<%=BaseCtl.OP_SAVE%>" class="btn btn-primary">
+
+							</div>
+
+
+						</div>
+
+					</div>
+
+				</div>
+
+			</div>
 
 		</div>
 
