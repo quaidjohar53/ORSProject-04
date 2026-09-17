@@ -1,6 +1,11 @@
+<%@page import="in.co.rays.proj4.util.DataUtility"%>
+
 <%@page import="in.co.rays.proj4.controller.LoginCtl"%>
+
 <%@page import="in.co.rays.proj4.util.ServletUtility"%>
+
 <%@page import="in.co.rays.proj4.controller.BaseCtl"%>
+
 <%@page import="in.co.rays.proj4.controller.ORSView"%>
 
 <!DOCTYPE html>
@@ -17,83 +22,135 @@
 
 <body>
 
-	<%@include file="Header.jsp"%>
+	<jsp:useBean id="bean" class="in.co.rays.proj4.bean.UserBean"
+		scope="request"></jsp:useBean>
+
+	<%@ include file="Header.jsp"%>
 
 	<%
 	String _suc = ServletUtility.getSuccessMessage(request);
+
 	String _err = ServletUtility.getErrorMessage(request);
 	%>
 
+
 	<form action="<%=ORSView.LOGIN_CTL%>" method="post">
 
-		<div class="container">
+		<div class="container mt-5">
 
-			<div class="row justify-content-center mt-5">
+			<div class="row justify-content-center">
 
 				<div class="col-md-5">
 
-					<div class="card">
 
-						<div class="card-header text-center">
-							<h3>Login</h3>
+					<!-- Login Card -->
+
+					<div class="card shadow">
+
+
+						<!-- Card Header -->
+
+						<div class="card-header bg-dark text-white text-center">
+
+							<h1 class="mb-0">
+								<%=ms.get("login.title")%>
+							</h1>
+
 						</div>
+
+
+						<!-- Card Body -->
 
 						<div class="card-body">
 
-							<h5 class="text-success text-center"><%=_suc%></h5>
 
-							<h5 class="text-danger text-center"><%=_err%></h5>
+							<!-- Success Message -->
+
+							<%
+							if (_suc != null && !_suc.isEmpty()) {
+							%>
+
+							<div class="alert alert-success text-center">
+
+								<%=_suc%>
+
+							</div>
+
+							<%
+							}
+							%>
+
+
+							<!-- Error Message -->
+
+							<%
+							if (_err != null && !_err.isEmpty()) {
+							%>
+
+							<div class="alert alert-danger text-center">
+
+								<%=_err%>
+
+							</div>
+
+							<%
+							}
+							%>
 
 
 							<!-- Login -->
+
 							<div class="mb-3">
 
-								<label class="form-label">
-									Login <font color="red">*</font>
-								</label>
+								<label class="form-label fw-bold"> <%=ms.get("login.userid")%>
 
-								<input type="text"
-									name="login"
-									value=""
-									placeholder="Enter your login"
-									class="form-control">
+									<span class="text-danger">*</span>
 
-								<div class="text-danger">
+								</label> <input type="text" name="login" class="form-control"
+									value="<%=DataUtility.getStringData(bean.getLogin())%>"
+									placeholder="Enter your login">
+
+
+								<div class="text-danger mt-1">
+
 									<%=ServletUtility.getErrorMessage("login", request)%>
+
 								</div>
 
 							</div>
 
 
 							<!-- Password -->
+
 							<div class="mb-3">
 
-								<label class="form-label">
-									Password <font color="red">*</font>
-								</label>
+								<label class="form-label fw-bold"> <%=ms.get("login.password")%>
 
-								<input type="password"
-									name="password"
-									value=""
-									placeholder="Enter your password"
-									class="form-control">
+									<span class="text-danger">*</span>
 
-								<div class="text-danger">
+								</label> <input type="password" name="password" class="form-control"
+									value="<%=DataUtility.getStringData(bean.getPassword())%>"
+									placeholder="Enter your password">
+
+
+								<div class="text-danger mt-1">
+
 									<%=ServletUtility.getErrorMessage("password", request)%>
+
 								</div>
 
 							</div>
 
 
-							<!-- Sign In Button -->
-							<div class="text-center">
+							<!-- Login Button -->
 
-								<input type="submit"
-									name="operation"
-									value="<%=LoginCtl.OP_SIGN_IN%>"
-									class="btn btn-primary">
+							<div class="d-grid mt-4">
+
+								<input type="submit" name="operation"
+									class="btn btn-primary btn-lg" value="<%=LoginCtl.OP_SIGN_IN%>">
 
 							</div>
+
 
 						</div>
 
@@ -107,7 +164,8 @@
 
 	</form>
 
-	<%@include file="Footer.jsp"%>
+
+	<%@ include file="Footer.jsp"%>
 
 </body>
 
